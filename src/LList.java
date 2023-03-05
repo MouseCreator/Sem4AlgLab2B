@@ -135,7 +135,7 @@ public class LList implements Iterable<ListNode> {
 
             @Override
             public boolean hasNext() {
-                return currentNode != null;
+                return currentNode != tail;
             }
 
             @Override

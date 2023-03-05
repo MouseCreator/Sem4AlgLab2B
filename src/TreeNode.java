@@ -5,17 +5,13 @@ public class TreeNode {
     private LinkedList<TreeNode> children;
     private TreeNode parent;
 
-    public boolean isLeaf() {
-        return isLeaf;
-    }
-
     public void setLeaf(boolean leaf) {
         isLeaf = leaf;
     }
 
     private boolean isLeaf = true;
 
-    private int degree;
+    private final int degree;
     private final int minKeys;
     private final int maxKeys;
 
