@@ -89,6 +89,16 @@ public class LList implements Iterable<ListNode> {
         return size == maxSize;
     }
 
+    public int position(double d) {
+        int result = 0;
+        for (ListNode current = head; current != null; current = current.getNext()) {
+            if (d < current.value())
+                return result;
+            result++;
+        }
+        return result;
+    }
+
 
     @Override
     public Iterator<ListNode> iterator() {
