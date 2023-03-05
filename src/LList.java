@@ -199,4 +199,12 @@ public class LList implements Iterable<ListNode> {
         }
         return current.value();
     }
+
+    public double popFirst() {
+       return this.pop(head.value());
+    }
+
+    public double popLast() {
+       return this.pop(tail.value());
+    }
 }

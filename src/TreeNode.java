@@ -95,9 +95,37 @@ public class TreeNode {
     public int size() {
         return values.size();
     }
-    public void childrenBalance() {
+    public TreeNode childrenBalance(int myNumber) {
         if (this.parent != null) {
+            TreeNode left = parent.leftOf(myNumber);
+            TreeNode right = parent.rightOf(myNumber);
+            if (left != null && left.size() > minKeys) {
+                this.children.addFirst(left.children.pollFirst());
+                this.values.add(left.values.popLast());
+            }
+            else if (right != null && right.size() > minKeys) {
+                this.children.addLast(right.children.pollFirst());
+                this.values.add(right.values.popFirst());
+            } else {
+                //merge
+            }
+        }
+        return this.parent;
+    }
 
+    private TreeNode rightOf(int index) {
+        try {
+            return children.get(index + 1);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private TreeNode leftOf(int index) {
+        try {
+            return children.get(index - 1);
+        } catch (Exception e) {
+            return null;
         }
     }
     public void find(double val) {
