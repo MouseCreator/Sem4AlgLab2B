@@ -78,7 +78,27 @@ public class TreeNode {
     }
 
     public void pop(double val) {
+        int i = 0;
+        for (ListNode a : values) {
+            if (Doubles.compare(a.value(), val)) {
+                if (isLeaf) {
+                    values.pop(val);
+                    return;
+                } else {
 
+                }
+            } else if (val > a.value()) {
+                this.children.get(i).pop(val);
+            }
+        }
+    }
+    public int size() {
+        return values.size();
+    }
+    public void childrenBalance() {
+        if (this.parent != null) {
+
+        }
     }
     public void find(double val) {
 
