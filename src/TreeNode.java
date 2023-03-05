@@ -85,11 +85,12 @@ public class TreeNode {
                     values.pop(val);
                     return;
                 } else {
-
+                    childrenBalance(i);
                 }
             } else if (val > a.value()) {
                 this.children.get(i).pop(val);
             }
+            i++;
         }
     }
     public int size() {
@@ -115,7 +116,7 @@ public class TreeNode {
                     this.children.addAll(minKeys, left.children);
                     this.values.merge(left.values);
                     this.parent.children.remove(left);
-                    this.parent.values.popAt(myNumber+1);
+                    this.add(this.parent.values.popAt(myNumber+1));
                 } else {
                     throw new RuntimeException("Cannot merge nodes");
                 }
