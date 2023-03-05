@@ -2,7 +2,6 @@ import java.util.Iterator;
 
 public class LList implements Iterable<ListNode> {
     private ListNode head;
-
     private ListNode tail;
     private int size;
     private final int maxSize;
@@ -88,6 +87,27 @@ public class LList implements Iterable<ListNode> {
     public boolean isFull() {
         return size == maxSize;
     }
+    public LList[] split() {
+        if (size % 2 == 0 || size < 3) {
+            throw new IllegalStateException("Size cannot be equal to " + size + ". Unable to find median");
+        }
+        ListNode median = head;
+        int m = size / 2;
+        for (int i = 0; i < m; i++) {
+            median = median.getNext();
+        }
+        LList[] arr = new LList[3];
+        arr[0] = new LList(maxSize,m, head, median.getPrev());
+        arr[1] = new LList(1,1, median, median);
+        arr[2] = new LList(maxSize,m, median.getNext(), tail);
+        return arr;
+    }
+    private LList(int maxSize, int size, ListNode head, ListNode tail) {
+        this.maxSize = maxSize;
+        this.size = size;
+        this.head = head;
+        this.tail = tail;
+    }
 
     public int position(double d) {
         int result = 0;
@@ -152,5 +172,9 @@ public class LList implements Iterable<ListNode> {
 
     public boolean isEmpty() {
         return head == null;
+    }
+
+    public int size() {
+        return size;
     }
 }

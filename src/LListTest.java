@@ -37,4 +37,20 @@ class LListTest {
         System.out.println(list.printBothSides());
         assertTrue(isSorted(list));
     }
+    @Test
+    void split() {
+        LList list = new LList(7);
+        for (double i = 1.0; i < 7.7; i++) {
+            list.add(i);
+        }
+        LList[] arr = list.split();
+        assertEquals(3, arr[0].size());
+        assertEquals(1, arr[1].size());
+        assertEquals(3, arr[2].size());
+
+        list.add(8);
+
+        assertThrows(IllegalStateException.class, list::split);
+        assertThrows(IllegalStateException.class, arr[1]::split);
+    }
 }
