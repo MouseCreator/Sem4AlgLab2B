@@ -30,7 +30,7 @@ class TreeNodeTest {
         nodes.add(new TreeNode(3, 4.5));
         nodes.add(new TreeNode(3, 5.5));
         node.setChildren(nodes);
-        node.split(parent, 0);
+        node.split(0);
         System.out.println(parent.asString());
     }
 }

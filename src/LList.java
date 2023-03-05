@@ -101,7 +101,7 @@ public class LList implements Iterable<ListNode> {
         arr[0] = new LList(maxSize,m, head, median.getPrev());
         arr[0].tail.setNext(null);
 
-        arr[1] = new LList(1,1, median, median);
+        arr[1] = new LList(maxSize,1, median, median);
         arr[1].head.setPrev(null);
         arr[1].tail.setNext(null);
 

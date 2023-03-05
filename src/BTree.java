@@ -23,7 +23,11 @@ public class BTree {
         if (root == null) {
             root = new TreeNode(degree, val);
         } else {
-            root.add(val);
+            if (root.isFull()) {
+                root = root.split(0);
+            } else {
+                root.add(val);
+            }
         }
     }
     public void pop(double val) throws NoSuchElementException {
@@ -32,5 +36,12 @@ public class BTree {
 
     public void find(double val) throws NoSuchElementException {
 
+    }
+    public String asString() {
+        if (root == null) {
+            return "Empty tree";
+        } else {
+            return root.asString();
+        }
     }
 }
