@@ -55,14 +55,14 @@ public class LList implements Iterable<ListNode> {
         for (ListNode c = head; c != null; c = c.getNext()) {
             result++;
             if (Doubles.compare(d, c.value())) {
-                extracted(c);
+                pop(c);
                 return result;
             }
         }
         return -1;
     }
 
-    private int extracted(ListNode c) {
+    private double pop(ListNode c) {
         size--;
         if (c == head) {
             if (head.hasNext()) {
@@ -79,6 +79,7 @@ public class LList implements Iterable<ListNode> {
             c.getNext().setPrev(c.getPrev());
             c.getPrev().setNext(c.getNext());
         }
+        return c.value();
     }
 
     public boolean contains(double d) {
@@ -218,6 +219,6 @@ public class LList implements Iterable<ListNode> {
         for (int j = 0; j < i; j++) {
             a = a.getNext();
         }
-        pop(a.value());
+        return pop(a);
     }
 }
