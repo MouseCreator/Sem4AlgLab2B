@@ -1,4 +1,6 @@
-public class LList {
+import java.util.Iterator;
+
+public class LList implements Iterable<ListNode> {
     private ListNode head;
 
     private ListNode tail;
@@ -14,21 +16,30 @@ public class LList {
             head = tail = new ListNode(d);
         } else {
             ListNode c = head;
-            if (d < c.value) {
+            if (d < c.value()) {
                 head = new ListNode(d, null, head);
                 size++;
                 return result;
             }
             for (; c != tail; c = c.getNext()) {
-                result++;
-                if (d > c.value()) {
-                    c.setNext(new ListNode(d, c, c.getNext()));
+                if (d < c.value()) {
+                    ListNode p = c.getPrev();
+                    c.setPrev(new ListNode(d, c.getPrev(), c));
+                    if (p != null)
+                        p.setNext(c.getPrev());
                     size++;
                     return result;
                 }
+                result++;
             }
-            if (d > c.value()) {
-                c.setNext(new ListNode(d, c, c.getNext()));
+            if (d < c.value()) {
+                ListNode p = c.getPrev();
+                c.setPrev(new ListNode(d, c.getPrev(), c));
+                if (p != null)
+                    p.setNext(c.getPrev());
+            } else {
+                result++;
+                c.setNext(new ListNode(d, c, null));
                 tail = c.getNext();
             }
         }
@@ -61,4 +72,43 @@ public class LList {
         return size == maxSize;
     }
 
+
+    @Override
+    public Iterator<ListNode> iterator() {
+        return new Iterator<>() {
+
+            private ListNode currentNode = head;
+
+            @Override
+            public boolean hasNext() {
+                return currentNode.getNext() != null;
+            }
+
+            @Override
+            public ListNode next() {
+                currentNode = currentNode.getNext();
+                return currentNode;
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+    }
+    @Override
+    public String toString() {
+        if (head == null)
+            return "Empty list";
+        StringBuilder builder = new StringBuilder();
+        builder.append(head);
+        for (ListNode c = head.getNext(); c != null; c = c.getNext()) {
+           builder.append("->").append(c);
+        }
+        return builder.toString();
+    }
+
+    public boolean isEmpty() {
+        return head == null;
+    }
 }

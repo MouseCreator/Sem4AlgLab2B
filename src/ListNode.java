@@ -1,6 +1,5 @@
 
 public class ListNode {
-    public double value;
     private ListNode prev;
     private double d;
     private ListNode next;
@@ -26,5 +25,17 @@ public class ListNode {
 
     public void setNext(ListNode listNode) {
         this.next = listNode;
+    }
+    @Override
+    public String toString() {
+        return "[" + Doubles.asString(d) + "]";
+    }
+
+    public ListNode getPrev() {
+        return prev;
+    }
+
+    public void setPrev(ListNode listNode) {
+        this.prev = listNode;
     }
 }
