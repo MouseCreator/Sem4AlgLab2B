@@ -1,11 +1,19 @@
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class TreeNode {
     private LList values;
     private LinkedList<TreeNode> children;
     private TreeNode parent;
-    private boolean isLeaf;
+
+    public boolean isLeaf() {
+        return isLeaf;
+    }
+
+    public void setLeaf(boolean leaf) {
+        isLeaf = leaf;
+    }
+
+    private boolean isLeaf = true;
 
     private int degree;
     private final int minKeys;
@@ -32,13 +40,13 @@ public class TreeNode {
         } else {
             int toChild = values.position(val);
             if (this.children.get(toChild).isFull()) {
-                this.children.get(toChild).split(this);
+                this.children.get(toChild).split(this, toChild);
             }
             children.get(toChild).add(val);
         }
     }
 
-    private void split(TreeNode parent) {
+    protected void split(TreeNode parent, int pos) {
         LList[] lists = this.values.split();
         this.values = lists[0];
         parent.values.merge(lists[1]);
@@ -48,6 +56,7 @@ public class TreeNode {
                 neighbor.children.add(this.children.remove(0));
             }
         }
+        parent.children.add(pos+1, neighbor);
     }
 
     private TreeNode(boolean isLeaf, LList list, int d) {
@@ -56,6 +65,7 @@ public class TreeNode {
         minKeys = d - 1;
         this.degree = d;
         maxKeys = 2 * d - 1;
+        this.children = new LinkedList<>();
     }
 
     private boolean isFull() {
@@ -67,5 +77,23 @@ public class TreeNode {
     }
     public void find(double val) {
 
+    }
+
+    protected void setChildren(LinkedList<TreeNode> t) {
+        this.children = t;
+    }
+    protected void setList(LList list) {
+        this.values = list;
+    }
+    public String asString() { return asString(0); }
+
+    public String asString(int tabulation) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < values.size(); i++) {
+            builder.append("\t".repeat(tabulation)).append("[").append(values.get(i)).append("]\n");
+            if (!isLeaf && i != values.size() - 1)
+                builder.append(children.get(i).asString(tabulation+1)).append("\n");
+        }
+        return builder.toString();
     }
 }

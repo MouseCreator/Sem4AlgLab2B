@@ -96,15 +96,16 @@ public class LList implements Iterable<ListNode> {
         for (int i = 0; i < m; i++) {
             median = median.getNext();
         }
+        ListNode medianNext = median.getNext();
         LList[] arr = new LList[3];
         arr[0] = new LList(maxSize,m, head, median.getPrev());
         arr[0].tail.setNext(null);
 
         arr[1] = new LList(1,1, median, median);
-        arr[1].tail.setPrev(null);
+        arr[1].head.setPrev(null);
         arr[1].tail.setNext(null);
 
-        arr[2] = new LList(maxSize,m, median.getNext(), tail);
+        arr[2] = new LList(maxSize,m ,medianNext, tail);
         arr[2].head.setPrev(null);
         return arr;
     }
@@ -134,13 +135,12 @@ public class LList implements Iterable<ListNode> {
 
             @Override
             public boolean hasNext() {
-                return currentNode.getNext() != null;
+                return currentNode != null;
             }
 
             @Override
             public ListNode next() {
-                currentNode = currentNode.getNext();
-                return currentNode;
+                return currentNode.getNext();
             }
 
             @Override
@@ -184,8 +184,19 @@ public class LList implements Iterable<ListNode> {
         return size;
     }
     public void merge(LList other) {
-        for (ListNode a : other) {
-            this.add(a.value());
+        for (ListNode current = other.head; current != null; current = current.getNext()) {
+            this.add(current.value());
         }
+    }
+
+    public double get(int index) {
+        ListNode current = head;
+        if (index >= size) {
+            throw new IndexOutOfBoundsException("Index " + index + " is larger than list size.");
+        }
+        for (int j = 0; j < index; j++) {
+            current = current.getNext();
+        }
+        return current.value();
     }
 }
