@@ -22,9 +22,7 @@ public class TreeNode {
         this.values.add(val);
     }
 
-    private boolean compare(double a, double b) {
-        return Math.abs(a - b) < 0.0001;
-    }
+
 
     public void add(double val) {
         if (isLeaf) {

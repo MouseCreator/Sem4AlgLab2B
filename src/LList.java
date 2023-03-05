@@ -1,5 +1,3 @@
-import java.util.LinkedList;
-
 public class LList {
     private ListNode head;
 
@@ -15,16 +13,49 @@ public class LList {
         if (head == null) {
             head = tail = new ListNode(d);
         } else {
-            for (ListNode c = head; c != tail; c = c.getNext()) {
+            ListNode c = head;
+            if (d < c.value) {
+                head = new ListNode(d, null, head);
+                size++;
+                return result;
+            }
+            for (; c != tail; c = c.getNext()) {
                 result++;
                 if (d > c.value()) {
                     c.setNext(new ListNode(d, c, c.getNext()));
-                    break;
+                    size++;
+                    return result;
                 }
+            }
+            if (d > c.value()) {
+                c.setNext(new ListNode(d, c, c.getNext()));
+                tail = c.getNext();
             }
         }
         size++;
         return result;
+    }
+    public int pop(double d) {
+        if (head == null) {
+            throw new IndexOutOfBoundsException();
+        }
+        int result = 0;
+        for (ListNode c = head; c != tail; c = c.getNext()) {
+            result++;
+            if (Doubles.compare(d, c.value())) {
+                size--;
+                return result;
+            }
+        }
+        return -1;
+    }
+    public boolean contains(double d) {
+        for (ListNode c = head; c != null; c = c.getNext()) {
+            if (Doubles.compare(d, c.value())) {
+                return true;
+            }
+        }
+        return false;
     }
     public boolean isFull() {
         return size == maxSize;
