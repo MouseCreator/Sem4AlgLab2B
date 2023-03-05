@@ -177,4 +177,9 @@ public class LList implements Iterable<ListNode> {
     public int size() {
         return size;
     }
+    public void merge(LList other) {
+        for (ListNode a : other) {
+            this.add(a.value());
+        }
+    }
 }
