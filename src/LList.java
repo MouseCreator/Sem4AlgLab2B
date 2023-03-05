@@ -55,27 +55,32 @@ public class LList implements Iterable<ListNode> {
         for (ListNode c = head; c != null; c = c.getNext()) {
             result++;
             if (Doubles.compare(d, c.value())) {
-                size--;
-                if (c == head) {
-                    if (head.hasNext()) {
-                        head.getNext().setPrev(null);
-                    } else {
-                        head = tail = null;
-                        return 0;
-                    }
-                    head = head.getNext();
-                } else if (c == tail) {
-                    tail.getPrev().setNext(null);
-                    tail = tail.getPrev();
-                } else {
-                    c.getNext().setPrev(c.getPrev());
-                    c.getPrev().setNext(c.getNext());
-                }
+                extracted(c);
                 return result;
             }
         }
         return -1;
     }
+
+    private int extracted(ListNode c) {
+        size--;
+        if (c == head) {
+            if (head.hasNext()) {
+                head.getNext().setPrev(null);
+            } else {
+                head = tail = null;
+                return 0;
+            }
+            head = head.getNext();
+        } else if (c == tail) {
+            tail.getPrev().setNext(null);
+            tail = tail.getPrev();
+        } else {
+            c.getNext().setPrev(c.getPrev());
+            c.getPrev().setNext(c.getNext());
+        }
+    }
+
     public boolean contains(double d) {
         for (ListNode c = head; c != null; c = c.getNext()) {
             if (Doubles.compare(d, c.value())) {
@@ -206,5 +211,13 @@ public class LList implements Iterable<ListNode> {
 
     public double popLast() {
        return this.pop(tail.value());
+    }
+
+    public double popAt(int i) {
+        ListNode a = head;
+        for (int j = 0; j < i; j++) {
+            a = a.getNext();
+        }
+        pop(a.value());
     }
 }

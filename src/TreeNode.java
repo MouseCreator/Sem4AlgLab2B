@@ -107,7 +107,18 @@ public class TreeNode {
                 this.children.addLast(right.children.pollFirst());
                 this.values.add(right.values.popFirst());
             } else {
-                //merge
+                if (right != null) {
+                    this.values.merge(right.values);
+                    this.children.addAll(right.children);
+                    this.parent.children.remove(right);
+                } else if (left != null) {
+                    this.children.addAll(minKeys, left.children);
+                    this.values.merge(left.values);
+                    this.parent.children.remove(left);
+                    this.parent.values.popAt(myNumber+1);
+                } else {
+                    throw new RuntimeException("Cannot merge nodes");
+                }
             }
         }
         return this.parent;
