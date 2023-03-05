@@ -53,7 +53,7 @@ public class TreeNode {
         TreeNode neighbor = new TreeNode(isLeaf, lists[2], degree);
         if (!isLeaf) {
             for (int i = 0; i < degree; i++) {
-                neighbor.children.add(this.children.remove(0));
+                neighbor.children.add(this.children.remove(degree));
             }
         }
         parent.children.add(pos+1, neighbor);
@@ -91,9 +91,11 @@ public class TreeNode {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < values.size(); i++) {
             builder.append("\t".repeat(tabulation)).append("[").append(values.get(i)).append("]\n");
-            if (!isLeaf && i != values.size() - 1)
-                builder.append(children.get(i).asString(tabulation+1)).append("\n");
+            if (!isLeaf)
+                builder.append(children.get(i).asString(tabulation+1));
         }
+        if (!isLeaf)
+            builder.append(children.get(values.size()).asString(tabulation+1));
         return builder.toString();
     }
 }

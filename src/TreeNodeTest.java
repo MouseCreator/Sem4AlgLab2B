@@ -11,6 +11,7 @@ class TreeNodeTest {
         LinkedList<TreeNode> children = new LinkedList<>();
         TreeNode node = new TreeNode(3);
         children.add(node);
+        children.add(new TreeNode(10));
         parent.setChildren(children);
         parent.setLeaf(false);
         node.setLeaf(false);
