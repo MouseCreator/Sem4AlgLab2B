@@ -18,6 +18,8 @@ public class LList implements Iterable<ListNode> {
             ListNode c = head;
             if (d < c.value()) {
                 head = new ListNode(d, null, head);
+                if (head.hasNext())
+                    head.getNext().setPrev(head);
                 size++;
                 return result;
             }
@@ -51,10 +53,25 @@ public class LList implements Iterable<ListNode> {
             throw new IndexOutOfBoundsException();
         }
         int result = 0;
-        for (ListNode c = head; c != tail; c = c.getNext()) {
+        for (ListNode c = head; c != null; c = c.getNext()) {
             result++;
             if (Doubles.compare(d, c.value())) {
                 size--;
+                if (c == head) {
+                    if (head.hasNext()) {
+                        head.getNext().setPrev(null);
+                    } else {
+                        head = tail = null;
+                        return 0;
+                    }
+                    head = head.getNext();
+                } else if (c == tail) {
+                    tail.getPrev().setNext(null);
+                    tail = tail.getPrev();
+                } else {
+                    c.getNext().setPrev(c.getPrev());
+                    c.getPrev().setNext(c.getNext());
+                }
                 return result;
             }
         }
@@ -104,6 +121,21 @@ public class LList implements Iterable<ListNode> {
         builder.append(head);
         for (ListNode c = head.getNext(); c != null; c = c.getNext()) {
            builder.append("->").append(c);
+        }
+        return builder.toString();
+    }
+    protected String printBothSides() {
+        if (head == null)
+            return "Empty list";
+        StringBuilder builder = new StringBuilder();
+        builder.append(head);
+        for (ListNode c = head.getNext(); c != null; c = c.getNext()) {
+            builder.append("->").append(c);
+        }
+        builder.append('\n');
+        builder.append(tail);
+        for (ListNode c = tail.getPrev(); c != null; c = c.getPrev()) {
+            builder.append("<-").append(c);
         }
         return builder.toString();
     }

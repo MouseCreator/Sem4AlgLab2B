@@ -38,4 +38,11 @@ public class ListNode {
     public void setPrev(ListNode listNode) {
         this.prev = listNode;
     }
+
+    public boolean hasNext() {
+        return next != null;
+    }
+    public boolean hasPrev() {
+        return prev != null;
+    }
 }

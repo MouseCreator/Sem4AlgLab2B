@@ -20,7 +20,21 @@ class LListTest {
         assertEquals(1, list.add(3.0));
         assertEquals(0, list.add(1.5));
         assertEquals(2,list.add(2.5));
-        System.out.println(list);
+        System.out.println(list.printBothSides());
+        assertTrue(isSorted(list));
+    }
+
+    @Test
+    void pop() {
+        LList list = new LList(100);
+        list.add(2.0);
+        list.add(3.0);
+        list.add(1.5);
+        list.add(2.5);
+        list.pop(2.0);
+        list.pop(3.0);
+        list.pop(2.5);
+        System.out.println(list.printBothSides());
         assertTrue(isSorted(list));
     }
 }
