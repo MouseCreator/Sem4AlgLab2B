@@ -98,8 +98,14 @@ public class LList implements Iterable<ListNode> {
         }
         LList[] arr = new LList[3];
         arr[0] = new LList(maxSize,m, head, median.getPrev());
+        arr[0].tail.setNext(null);
+
         arr[1] = new LList(1,1, median, median);
+        arr[1].tail.setPrev(null);
+        arr[1].tail.setNext(null);
+
         arr[2] = new LList(maxSize,m, median.getNext(), tail);
+        arr[2].head.setPrev(null);
         return arr;
     }
     private LList(int maxSize, int size, ListNode head, ListNode tail) {

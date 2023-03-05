@@ -30,10 +30,16 @@ public class TreeNode {
         } else {
             int toChild = values.position(val);
             if (this.children.get(toChild).isFull()) {
-                //split
+                this.children.get(toChild).split();
             }
             children.get(toChild).add(val);
         }
+    }
+
+    private TreeNode[] split() {
+        LList[] lists = this.values.split();
+        TreeNode[] nodes = new TreeNode[3];
+        return nodes; //TODO: implement splitting
     }
 
     private boolean isFull() {
