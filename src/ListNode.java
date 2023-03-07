@@ -49,4 +49,11 @@ public class ListNode {
     public void setValue(double value) {
         d = value;
     }
+
+    private ListNode next() {
+        return this.next;
+    }
+    private ListNode prev() {
+        return this.prev;
+    }
 }

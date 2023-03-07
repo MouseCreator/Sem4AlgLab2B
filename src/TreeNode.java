@@ -79,24 +79,29 @@ public class TreeNode {
 
     public void pop(double val) {
         int i = 0;
-        for (ListNode a : values) {
-            if (Doubles.compare(a.value(), val)) {
+        for (ListNode listNode : values) {
+            if (Doubles.compare(listNode.value(), val)) {
                 if (isLeaf) {
                     values.pop(val);
                     return;
                 } else {
-                    if (size() > minKeys) {
-                        a.setValue(previousValue(children.get(i)));
+                    if (children.get(i).size() > minKeys) {
+                        listNode.setValue(previousValue(children.get(i)));
+                    } else if (children.get(i+1).size() > minKeys) {
+                        listNode.setValue(previousValue(children.get(i+1)));
                     } else {
                         childrenBalance(i);
                     }
                 }
-            } else if (val > a.value()) {
+            } else if (val > listNode.value()) {
                 this.children.get(i).pop(val);
             }
             i++;
         }
     }
+
+
+
     public int size() {
         return values.size();
     }
@@ -134,6 +139,14 @@ public class TreeNode {
             current = current.children.getLast();
         }
         return current.values.popLast();
+    }
+
+    private double nextValue(TreeNode child) {
+        TreeNode current = child;
+        while (!current.isLeaf) {
+            current = current.children.getFirst();
+        }
+        return current.values.popFirst();
     }
     private TreeNode rightOf(int index) {
         try {
