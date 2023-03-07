@@ -45,4 +45,8 @@ public class ListNode {
     public boolean hasPrev() {
         return prev != null;
     }
+
+    public void setValue(double value) {
+        d = value;
+    }
 }

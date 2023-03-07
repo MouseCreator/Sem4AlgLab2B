@@ -85,7 +85,11 @@ public class TreeNode {
                     values.pop(val);
                     return;
                 } else {
-                    childrenBalance(i);
+                    if (size() > minKeys) {
+                        a.setValue(previousValue(children.get(i)));
+                    } else {
+                        childrenBalance(i);
+                    }
                 }
             } else if (val > a.value()) {
                 this.children.get(i).pop(val);
@@ -124,7 +128,13 @@ public class TreeNode {
         }
         return this.parent;
     }
-
+    private double previousValue(TreeNode child) {
+        TreeNode current = child;
+        while (!current.isLeaf) {
+            current = current.children.getLast();
+        }
+        return current.values.popLast();
+    }
     private TreeNode rightOf(int index) {
         try {
             return children.get(index + 1);
