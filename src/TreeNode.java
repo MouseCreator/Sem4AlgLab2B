@@ -109,7 +109,7 @@ public class TreeNode {
         i = values.position(val);
         TreeNode nextChild = children.get(i);
         if (nextChild.size() <= minKeys)
-            nextChild.childrenBalance(i);
+            nextChild.childrenBalance(i, val);
         nextChild.pop(val);
     }
 
@@ -118,7 +118,7 @@ public class TreeNode {
     public int size() {
         return values.size();
     }
-    public TreeNode childrenBalance(int myNumber) {
+    public TreeNode childrenBalance(int myNumber, double myDenominator) {
         if (this.parent != null) {
             TreeNode left = parent.leftOf(myNumber);
             TreeNode right = parent.rightOf(myNumber);

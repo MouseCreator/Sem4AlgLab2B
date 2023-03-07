@@ -21,8 +21,6 @@ class BTreeTest {
     void pop() {
         BTree tree = new BTree(3);
         for (int i = 1; i <= 21; i++) {
-            if (i == 21)
-                i = i;
             tree.add(i);
         }
         System.out.println(tree.asString());
