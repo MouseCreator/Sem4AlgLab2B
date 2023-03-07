@@ -1,3 +1,5 @@
+package Advanced;
+
 public class AdvancedTreeNodeContainer {
     public AdvancedTreeNode getNode() {
         return node;

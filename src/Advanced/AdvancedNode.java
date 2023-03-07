@@ -1,3 +1,5 @@
+package Advanced;
+
 public class AdvancedNode {
     double value;
 

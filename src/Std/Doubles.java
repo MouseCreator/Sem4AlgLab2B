@@ -1,3 +1,4 @@
+package Std;
 
 public class Doubles {
 
