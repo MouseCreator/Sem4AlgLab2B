@@ -137,16 +137,16 @@ public class LList implements Iterable<ListNode> {
     public Iterator<ListNode> iterator() {
         return new Iterator<>() {
 
-            private ListNode currentNode = head;
+            private ListNode currentNode = new ListNode(0, tail, head);
 
             @Override
             public boolean hasNext() {
-                return currentNode != tail;
+                return currentNode.hasNext();
             }
 
             @Override
             public ListNode next() {
-                return currentNode.getNext();
+                return currentNode = currentNode.getNext();
             }
 
             @Override
@@ -207,11 +207,15 @@ public class LList implements Iterable<ListNode> {
     }
 
     public double popFirst() {
-       return this.pop(head.value());
+        double d = head.value();
+        this.pop(d);
+        return d;
     }
 
     public double popLast() {
-       return this.pop(tail.value());
+        double d = tail.value();
+        this.pop(d);
+        return d;
     }
 
     public double popAt(int i) {

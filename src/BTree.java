@@ -30,7 +30,7 @@ public class BTree {
         }
     }
     public void pop(double val) throws NoSuchElementException {
-
+        root.pop(val);
     }
 
     public void find(double val) throws NoSuchElementException {

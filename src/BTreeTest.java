@@ -20,16 +20,14 @@ class BTreeTest {
     @Test
     void pop() {
         BTree tree = new BTree(3);
-        for (int i = 1; i <= 20; i++) {
-            if (i == 6) {
-                System.out.println("a");
-            }
+        for (int i = 1; i <= 21; i++) {
+            if (i == 21)
+                i = i;
             tree.add(i);
         }
         System.out.println(tree.asString());
-        tree.pop(10);
-        tree.pop(12);
-        tree.pop(2);
+        tree.pop(8);
         System.out.println(tree.asString());
+
     }
 }

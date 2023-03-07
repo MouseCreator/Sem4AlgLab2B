@@ -37,8 +37,10 @@ public class TreeNode {
             int toChild = values.position(val);
             if (this.children.get(toChild).isFull()) {
                 this.children.get(toChild).split(toChild);
+                this.add(val);
+            } else {
+                children.get(toChild).add(val);
             }
-            children.get(toChild).add(val);
         }
     }
 
@@ -50,6 +52,9 @@ public class TreeNode {
         if (!isLeaf) {
             for (int i = 0; i < degree; i++) {
                 neighbor.children.add(this.children.remove(degree));
+            }
+            for (TreeNode treeNode : neighbor.children) {
+                treeNode.parent = neighbor;
             }
         }
         if (parent != null) {
@@ -98,12 +103,14 @@ public class TreeNode {
                     }
                 }
                 return;
-            } else if (val > listNode.value()) {
-                childrenBalance(i);
-                this.children.get(i).pop(val);
             }
             i++;
         }
+        i = values.position(val);
+        TreeNode nextChild = children.get(i);
+        if (nextChild.size() <= minKeys)
+            nextChild.childrenBalance(i);
+        nextChild.pop(val);
     }
 
 
