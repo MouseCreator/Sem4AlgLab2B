@@ -57,6 +57,7 @@ public class TreeNode {
             parent.values.merge(lists[1]);
         } else {
             parent = new TreeNode(null, false, lists[1], degree);
+            neighbor.parent = parent;
             parent.children.add(this);
             parent.children.add(neighbor);
         }
@@ -94,7 +95,6 @@ public class TreeNode {
                         prev.values.add(val);
                         prev.values.merge(next.values);
                         prev.pop(val);
-
                     }
                 }
                 return;

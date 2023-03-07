@@ -25,9 +25,8 @@ public class BTree {
         } else {
             if (root.isFull()) {
                 root = root.split(0);
-            } else {
-                root.add(val);
             }
+            root.add(val);
         }
     }
     public void pop(double val) throws NoSuchElementException {

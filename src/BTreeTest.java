@@ -17,4 +17,19 @@ class BTreeTest {
         tree.add(6);
         System.out.println(tree.asString());
     }
+    @Test
+    void pop() {
+        BTree tree = new BTree(3);
+        for (int i = 1; i <= 20; i++) {
+            if (i == 6) {
+                System.out.println("a");
+            }
+            tree.add(i);
+        }
+        System.out.println(tree.asString());
+        tree.pop(10);
+        tree.pop(12);
+        tree.pop(2);
+        System.out.println(tree.asString());
+    }
 }
