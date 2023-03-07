@@ -83,17 +83,23 @@ public class TreeNode {
             if (Doubles.compare(listNode.value(), val)) {
                 if (isLeaf) {
                     values.pop(val);
-                    return;
                 } else {
-                    if (children.get(i).size() > minKeys) {
-                        listNode.setValue(previousValue(children.get(i)));
-                    } else if (children.get(i+1).size() > minKeys) {
-                        listNode.setValue(previousValue(children.get(i+1)));
+                    TreeNode prev = children.get(i);
+                    TreeNode next = children.get(i+1);
+                    if (prev.size() > minKeys) {
+                        listNode.setValue(previousValue(prev));
+                    } else if (next.size() > minKeys) {
+                        listNode.setValue(previousValue(next));
                     } else {
-                        childrenBalance(i);
+                        prev.values.add(val);
+                        prev.values.merge(next.values);
+                        prev.pop(val);
+
                     }
                 }
+                return;
             } else if (val > listNode.value()) {
+                childrenBalance(i);
                 this.children.get(i).pop(val);
             }
             i++;
