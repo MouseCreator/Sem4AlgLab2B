@@ -44,5 +44,11 @@ public class AdvancedNode {
     }
 
 
+    public boolean hasRight() {
+        return this.right != null;
+    }
 
+    public boolean hasLeft() {
+        return this.left != null;
+    }
 }

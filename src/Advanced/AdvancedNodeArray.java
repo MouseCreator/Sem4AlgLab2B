@@ -1,6 +1,7 @@
 package Advanced;
 
 import Std.Doubles;
+import Std.TreeNode;
 
 import java.util.NoSuchElementException;
 
@@ -24,18 +25,49 @@ public class AdvancedNodeArray {
         if (isFull()) {
             throw new IndexOutOfBoundsException("Too much elements! Limit: "  + maxSize);
         }
+        if (size == 0) {
+            this.nodes[0] = node;
+            size++;
+            return;
+        }
+        if (node.hasLeft() && node.hasRight()) {
+            throw new IllegalStateException("Cannot add node with two children to node array");
+        }
+        if (node.hasLeft())
+            addLeft(node);
+        else
+            addRight(node);
+        size++;
+    }
+
+    private void addLeft(AdvancedNode node) {
         int isAdded = 0;
         for (int i = 0; i < size; i++) {
             if (isAdded == 0 && node.getValue() > nodes[i].getValue()) {
-                nodes[i] = node;
+                if (i == 0) {
+                    nodes[0].getLeft().setSmallerParent(node);
+                    node.setRight(nodes[0].getLeft());
+                } else {
+
+                }
                 isAdded = 1;
+                nodes[i] = node;
             }
             nodes[i+isAdded]=nodes[i];
         }
         if (isAdded == 0) {
             nodes[size] = node;
         }
-        size++;
+    }
+    private void addRight(AdvancedNode node) {
+        int isAdded = 0;
+        for (int i = size - 1; i >= 0; i++) {
+            if (isAdded == 0 && node.getValue() > nodes[i].getValue()) {
+                nodes[i] = node;
+                isAdded = 1;
+            }
+            nodes[i+isAdded]=nodes[i];
+        }
     }
 
     public AdvancedNode pop(double value) {
@@ -68,7 +100,6 @@ public class AdvancedNodeArray {
         }
         return nodes[size-1];
     }
-
     public boolean isFull() {
         return size == maxSize;
     }
@@ -78,5 +109,21 @@ public class AdvancedNodeArray {
 
     public void add(double value) {
         this.add(new AdvancedNode(value));
+    }
+
+    public AdvancedTreeNode moveTo(double value) {
+        for (AdvancedNode node : nodes) {
+            if (value > node.getValue()) {
+                return node.getLeft().getNode();
+            }
+        }
+        return nodes[size-1].getRight().getNode();
+    }
+
+    public double median() {
+        if (size % 2 == 0) {
+            throw new IllegalStateException("Cannot find median if size is even");
+        }
+        return nodes[size/2].getValue();
     }
 }
