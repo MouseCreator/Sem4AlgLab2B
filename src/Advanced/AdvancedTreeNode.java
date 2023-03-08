@@ -106,20 +106,54 @@ public class AdvancedTreeNode {
                 popNotLeaf(value);
             }
         } else {
-            AdvancedTreeNodeContainer next = array.getByValue(value);
-            if (next.hasSmallerParent() && next.getSmallerParent().hasLeft() &&
-                    !next.getSmallerParent().getLeft().getNode().isMinimum()) {
-                AdvancedNode borrowed = array.borrowFirst();
-                this.array.add(borrowed);
+            moveDown(value).getNode().pop(value);
+        }
+    }
 
-                double temp = this.array.last().getValue();
-                this.array.last().setValue(next.getSmallerParent().getValue());
-                next.getSmallerParent().setValue(temp);
+    private AdvancedTreeNodeContainer moveDown(double value) {
+        AdvancedTreeNodeContainer next = array.getByValue(value);
+        if (!next.getNode().isMinimum())
+            return next;
+        if (next.hasSmallerParent() && next.getSmallerParent().hasLeft() &&
+                !next.getSmallerParent().getLeft().getNode().isMinimum()) {
+            AdvancedNode borrowed = next.getSmallerParent().getLeft().getNode().array.borrowLast();
+            next.getNode().array.add(borrowed);
 
-            } else if (next.hasGreaterParent() && next.getGreaterParent().hasRight() &&
-                    !next.getGreaterParent().getRight().getNode().isMinimum()) {
+            double temp = this.array.first().getValue();
+            next.getNode().array.first().setValue(next.getSmallerParent().getValue());
+            next.getSmallerParent().setValue(temp);
+            return next;
+        } else if (next.hasGreaterParent() && next.getGreaterParent().hasRight() &&
+                !next.getGreaterParent().getRight().getNode().isMinimum()) {
+            AdvancedNode borrowed = next.getGreaterParent().getRight().getNode().array.borrowFirst();
+            next.getNode().array.add(borrowed);
 
-            }
+            double temp = this.array.last().getValue();
+            next.getNode().array.last().setValue(next.getGreaterParent().getValue());
+            next.getGreaterParent().setValue(temp);
+            return next;
+        } else if (next.hasSmallerParent() && next.getSmallerParent().hasLeft()) {
+            AdvancedTreeNodeContainer left = next.getSmallerParent().getLeft();
+            left.getNode().array.merge(next.getSmallerParent().getValue(),
+                    next.getNode().array);
+            left.setGreaterParent(next.getGreaterParent());
+            next.setSmallerParent(null);
+            next.getNode().array.pop(value);
+            left.getNode().pop(value);
+            return left;
+        } else if (next.hasGreaterParent() && next.getGreaterParent().hasRight()) {
+            AdvancedTreeNodeContainer right = next.getGreaterParent().getRight();
+            right.getNode().array.merge(next.getSmallerParent().getValue(),
+                    next.getNode().array);
+            next.getNode().array.merge(right.getSmallerParent().getValue(),
+                    right.getNode().array);
+            next.setGreaterParent(next.getGreaterParent());
+            next.setSmallerParent(null);
+            next.getNode().array.pop(value);
+            next.getNode().pop(value);
+            return next;
+        } else {
+            throw new RuntimeException("Cannot merge nodes!");
         }
     }
 

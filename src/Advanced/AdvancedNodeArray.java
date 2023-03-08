@@ -48,7 +48,7 @@ public class AdvancedNodeArray implements Iterable<AdvancedNode> {
         }
         if (isAdded == 0) {
             nodes[size] = node;
-            if (size != 0) {
+            if (size != 0 && nodes[size - 1].hasRight()) {
                 node.setLeft(nodes[size - 1].getRight());
                 node.getLeft().setGreaterParent(node);
             }
@@ -62,11 +62,12 @@ public class AdvancedNodeArray implements Iterable<AdvancedNode> {
         AdvancedNode result = null;
         int j = 0;
         for (int i = 0; i < size; i++) {
-            if (Doubles.isEqual(value, nodes[i].getValue())) {
-                j = -1;
-                result = nodes[i];
-            }
             nodes[i+j]=nodes[i];
+            if (Doubles.isEqual(value, nodes[i].getValue())) {
+                result = nodes[i];
+                j = -1;
+            }
+
         }
         if (j==0)
             throw new NoSuchElementException("No value " + value + " in the array node");
@@ -221,9 +222,10 @@ public class AdvancedNodeArray implements Iterable<AdvancedNode> {
         }
         nodes[size] = new AdvancedNode(value, last().getRight(), array.first().getLeft());
 
-        for (int i = size + 1; i < maxSize; i++) {
-            nodes[i] = array.nodes[size + 1 - i];
+        for (int i = 0; i < size; i++) {
+            nodes[size + 1 + i] = array.nodes[i];
         }
+        this.size = 2 * size + 1;
     }
 
     public AdvancedNode borrowFirst() {
