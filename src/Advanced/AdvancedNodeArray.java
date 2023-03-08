@@ -158,4 +158,13 @@ public class AdvancedNodeArray implements Iterable<AdvancedNode> {
     public int size() {
         return size;
     }
+
+    public AdvancedNode getByValue(double value) {
+        for (int i = 0; i < size; i++) {
+            if (value < nodes[i].getValue()) {
+                return nodes[i];
+            }
+        }
+        return nodes[size-1];
+    }
 }

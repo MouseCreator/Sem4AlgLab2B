@@ -98,6 +98,25 @@ public class AdvancedTreeNode {
         return builder.toString();
     }
 
+    public void pop(double value) {
+        if (this.isLeaf) {
+            this.array.pop(value);
+        } else {
+            popNotLeaf(value);
+        }
+    }
+
+    private void popNotLeaf(double value) {
+        AdvancedNode node = this.array.getByValue(value);
+        if (node.hasLeft() && !node.getLeft().getNode().isMinimum()) {
+            //get from left
+        } else if (node.hasRight() && !node.getRight().getNode().isMinimum()) {
+            //get from right
+        } else {
+            //merge
+        }
+    }
+
     @Override
     public String toString() {
         return "Size: " + array.size();
