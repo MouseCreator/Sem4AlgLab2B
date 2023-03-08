@@ -1,5 +1,7 @@
 package Advanced;
 
+import Std.Doubles;
+
 public class AdvancedTreeNode {
 
     private AdvancedNodeArray array;
@@ -33,10 +35,11 @@ public class AdvancedTreeNode {
             if (toAdd.isFull()) {
                 toAdd.split(this);
             }
+            toAdd.add(value);
         }
     }
 
-    private void split(AdvancedTreeNode parent) {
+    public void split(AdvancedTreeNode parent) {
         AdvancedNode median = this.array.median();
         median.removeChildren();
         AdvancedTreeNode neighbor = new AdvancedTreeNode(this.degree);
@@ -45,10 +48,50 @@ public class AdvancedTreeNode {
         neighbor.isLeaf = this.isLeaf;
 
         median.setRight(new AdvancedTreeNodeContainer(neighbor));
+        median.getRight().setGreaterParent(median);
 
         parent.array.add(median);
-
+        parent.isLeaf = false;
         this.array = array.left();
 
+    }
+    public AdvancedTreeNode splitRoot() {
+        AdvancedTreeNode parent = new AdvancedTreeNode(degree);
+
+        AdvancedNode median = this.array.median();
+        median.removeChildren();
+        AdvancedTreeNode neighbor = new AdvancedTreeNode(this.degree);
+
+        neighbor.array = array.right();
+        neighbor.isLeaf = this.isLeaf;
+
+        median.setRight(new AdvancedTreeNodeContainer(neighbor));
+        median.setLeft(new AdvancedTreeNodeContainer(this));
+
+        median.getRight().setSmallerParent(median);
+        median.getLeft().setGreaterParent(median);
+
+        this.array = array.left();
+        parent.array.add(median);
+        parent.isLeaf = false;
+        return parent;
+    }
+
+    public String asString(int tabulation) {
+        StringBuilder builder = new StringBuilder();
+        for (AdvancedNode node : array) {
+            if (node.hasLeft())
+                builder.append("\t".repeat(tabulation)).append(node.getLeft().getNode().asString(tabulation+1));
+            builder.append(Doubles.asString(node.getValue())).append("\n");
+        }
+        if (array.last().hasRight())
+            builder.append("_\n").
+                    append("\t".repeat(tabulation)).append(array.last().getRight().getNode().asString(tabulation+1));
+        return builder.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "Size: " + array.size();
     }
 }

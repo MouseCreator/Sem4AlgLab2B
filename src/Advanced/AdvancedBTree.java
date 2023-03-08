@@ -16,7 +16,14 @@ public class AdvancedBTree {
             root = new AdvancedTreeNode(degree, val);
         }
         else {
+            if(root.isFull()) {
+                root = root.splitRoot();
+            }
             root.add(val);
         }
+    }
+
+    public String asString() {
+        return root.asString(0);
     }
 }

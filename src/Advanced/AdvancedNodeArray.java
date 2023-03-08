@@ -2,9 +2,11 @@ package Advanced;
 
 import Std.Doubles;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class AdvancedNodeArray {
+public class AdvancedNodeArray implements Iterable<AdvancedNode> {
     private final AdvancedNode[] nodes;
     private final int maxSize;
     private final int minSize;
@@ -32,8 +34,7 @@ public class AdvancedNodeArray {
         if (node.hasLeft() && node.hasRight()) {
             throw new IllegalStateException("Cannot add node with two children to node array");
         }
-        if(node.hasRight())
-            addRight(node);
+        addRight(node);
         size++;
     }
 
@@ -45,10 +46,12 @@ public class AdvancedNodeArray {
                 nodes[i] = node;
                 isAdded = 1;
                 nodes[i].setLeft(node.getRight());
-                if (i != 0)
-                    node.setLeft(nodes[i-1].getRight());
+                nodes[i].getLeft().setGreaterParent(nodes[i]);
             }
             nodes[i+isAdded]=nodes[i];
+        }
+        if (isAdded == 0) {
+            nodes[size] = node;
         }
     }
 
@@ -101,14 +104,62 @@ public class AdvancedNodeArray {
 
     public AdvancedNodeArray left() {
         AdvancedNodeArray array = new AdvancedNodeArray(minSize+1);
+
         int s = size/2;
+        array.size = s;
+
         if (s >= 0) System.arraycopy(nodes, 0, array.nodes, 0, s);
         return array;
     }
     public AdvancedNodeArray right() {
         AdvancedNodeArray array = new AdvancedNodeArray(minSize+1);
+
         int s = size/2;
-        if (size - s >= 0) System.arraycopy(nodes, s + s, array.nodes, s, size - s);
+        array.size = s;
+
+        if (size - s >= 0) System.arraycopy(this.nodes, s + 1, array.nodes, 0, size - s - 1);
         return array;
+    }
+
+    @Override
+    public Iterator<AdvancedNode> iterator() {
+        return new Iterator<>() {
+
+            private int num = -1;
+
+            @Override
+            public boolean hasNext() {
+                return num < size - 1;
+            }
+
+            @Override
+            public AdvancedNode next() {;
+                return nodes[++num];
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+    }
+
+    public AdvancedNode last() {
+        return nodes[size-1];
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder("[");
+        builder.append(nodes[0]);
+        for (int i = 1; i < size; i++) {
+            builder.append(", ").append(nodes[i]);
+        }
+        builder.append("]");
+        return builder.toString();
+    }
+
+    public int size() {
+        return size;
     }
 }

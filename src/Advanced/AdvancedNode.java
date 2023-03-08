@@ -1,5 +1,7 @@
 package Advanced;
 
+import Std.Doubles;
+
 public class AdvancedNode {
 
     private double value;
@@ -61,5 +63,9 @@ public class AdvancedNode {
             this.right.setSmallerParent(null);
             this.setRight(null);
         }
+    }
+    @Override
+    public String toString() {
+        return "(" + Doubles.asString(value) + ")";
     }
 }

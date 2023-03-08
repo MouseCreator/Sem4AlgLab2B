@@ -35,4 +35,8 @@ public class AdvancedTreeNodeContainer {
     public void setGreaterParent(AdvancedNode greaterParent) {
         this.greaterParent = greaterParent;
     }
+    @Override
+    public String toString() {
+        return this.node.toString();
+    }
 }
