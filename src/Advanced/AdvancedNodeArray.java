@@ -2,7 +2,6 @@ package Advanced;
 
 import Std.Doubles;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -87,9 +86,9 @@ public class AdvancedNodeArray implements Iterable<AdvancedNode> {
     }
 
     public AdvancedTreeNode moveTo(double value) {
-        for (AdvancedNode node : nodes) {
-            if (value > node.getValue()) {
-                return node.getLeft().getNode();
+        for (int i = 0; i < size; i++) {
+            if (value < nodes[i].getValue()) {
+                return nodes[i].getLeft().getNode();
             }
         }
         return nodes[size-1].getRight().getNode();

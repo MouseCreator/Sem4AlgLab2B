@@ -31,12 +31,19 @@ public class AdvancedTreeNode {
         if (this.isLeaf) {
             this.array.add(value);
         } else {
-            AdvancedTreeNode toAdd = this.array.moveTo(value);
-            if (toAdd.isFull()) {
-                toAdd.split(this);
-            }
+            addNotLeaf(value);
+        }
+    }
+
+    private void addNotLeaf(double value) {
+        AdvancedTreeNode toAdd = this.array.moveTo(value);
+        if (toAdd.isFull()) {
+            toAdd.split(this);
+            addNotLeaf(value);
+        } else {
             toAdd.add(value);
         }
+
     }
 
     public void split(AdvancedTreeNode parent) {
@@ -80,13 +87,13 @@ public class AdvancedTreeNode {
     public String asString(int tabulation) {
         StringBuilder builder = new StringBuilder();
         for (AdvancedNode node : array) {
+            builder.append("\t".repeat(tabulation)).append(node.getValue()).append("\n");
             if (node.hasLeft())
-                builder.append("\t".repeat(tabulation)).append(node.getLeft().getNode().asString(tabulation+1));
-            builder.append(Doubles.asString(node.getValue())).append("\n");
+                builder.append(node.getLeft().getNode().asString(tabulation+1));
         }
         if (array.last().hasRight())
-            builder.append("_\n").
-                    append("\t".repeat(tabulation)).append(array.last().getRight().getNode().asString(tabulation+1));
+            builder.append(array.last().getRight().getNode().asString(tabulation+1));
+        builder.append("\t".repeat(tabulation)).append("_").append("\n");
         return builder.toString();
     }
 
