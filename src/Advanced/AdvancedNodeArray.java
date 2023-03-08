@@ -48,6 +48,10 @@ public class AdvancedNodeArray implements Iterable<AdvancedNode> {
         }
         if (isAdded == 0) {
             nodes[size] = node;
+            if (size != 0) {
+                node.setLeft(nodes[size - 1].getRight());
+                node.getLeft().setGreaterParent(node);
+            }
         }
     }
 
@@ -90,13 +94,13 @@ public class AdvancedNodeArray implements Iterable<AdvancedNode> {
         }
         return nodes[size-1].getRight().getNode();
     }
-    public AdvancedNode getByValue(double value) {
+    public AdvancedTreeNodeContainer getByValue(double value) {
         for (int i = 0; i < size; i++) {
             if (value < nodes[i].getValue()) {
-                return nodes[i];
+                return nodes[i].getLeft();
             }
         }
-        return nodes[size-1];
+        return nodes[size-1].getRight();
     }
 
     public AdvancedNode median() {
@@ -220,5 +224,22 @@ public class AdvancedNodeArray implements Iterable<AdvancedNode> {
         for (int i = size + 1; i < maxSize; i++) {
             nodes[i] = array.nodes[size + 1 - i];
         }
+    }
+
+    public AdvancedNode borrowFirst() {
+        AdvancedNode toReturn = new AdvancedNode(minSize+1);
+
+        toReturn.setRight(first().getLeft());
+        toReturn.setValue(this.popFirst());
+
+        return toReturn;
+    }
+    public AdvancedNode borrowLast() {
+        AdvancedNode toReturn = new AdvancedNode(minSize+1);
+
+        toReturn.setLeft(last().getRight());
+        toReturn.setValue(this.popLast());
+
+        return toReturn;
     }
 }

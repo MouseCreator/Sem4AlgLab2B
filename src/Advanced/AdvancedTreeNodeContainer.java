@@ -39,4 +39,11 @@ public class AdvancedTreeNodeContainer {
     public String toString() {
         return this.node.toString();
     }
+
+    public boolean hasSmallerParent() {
+        return smallerParent != null;
+    }
+    public boolean hasGreaterParent() {
+        return greaterParent != null;
+    }
 }

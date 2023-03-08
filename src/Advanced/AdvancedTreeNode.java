@@ -106,7 +106,20 @@ public class AdvancedTreeNode {
                 popNotLeaf(value);
             }
         } else {
-            //move forward
+            AdvancedTreeNodeContainer next = array.getByValue(value);
+            if (next.hasSmallerParent() && next.getSmallerParent().hasLeft() &&
+                    !next.getSmallerParent().getLeft().getNode().isMinimum()) {
+                AdvancedNode borrowed = array.borrowFirst();
+                this.array.add(borrowed);
+
+                double temp = this.array.last().getValue();
+                this.array.last().setValue(next.getSmallerParent().getValue());
+                next.getSmallerParent().setValue(temp);
+
+            } else if (next.hasGreaterParent() && next.getGreaterParent().hasRight() &&
+                    !next.getGreaterParent().getRight().getNode().isMinimum()) {
+
+            }
         }
     }
 
