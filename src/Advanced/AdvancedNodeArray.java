@@ -129,7 +129,7 @@ public class AdvancedNodeArray implements Iterable<AdvancedNode> {
             }
 
             @Override
-            public AdvancedNode next() {;
+            public AdvancedNode next() {
                 return nodes[++num];
             }
 

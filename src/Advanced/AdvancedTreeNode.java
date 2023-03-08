@@ -1,7 +1,5 @@
 package Advanced;
 
-import Std.Doubles;
-
 public class AdvancedTreeNode {
 
     private AdvancedNodeArray array;
