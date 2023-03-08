@@ -120,10 +120,23 @@ public class AdvancedNodeArray {
         return nodes[size-1].getRight().getNode();
     }
 
-    public double median() {
+    public AdvancedNode median() {
         if (size % 2 == 0) {
             throw new IllegalStateException("Cannot find median if size is even");
         }
-        return nodes[size/2].getValue();
+        return nodes[size/2];
+    }
+
+    public AdvancedNodeArray left() {
+        AdvancedNodeArray array = new AdvancedNodeArray(minSize+1);
+        int s = size/2;
+        if (s >= 0) System.arraycopy(nodes, 0, array.nodes, 0, s);
+        return array;
+    }
+    public AdvancedNodeArray right() {
+        AdvancedNodeArray array = new AdvancedNodeArray(minSize+1);
+        int s = size/2;
+        if (size - s >= 0) System.arraycopy(nodes, s + s, array.nodes, s, size - s);
+        return array;
     }
 }

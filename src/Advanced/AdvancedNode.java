@@ -51,4 +51,15 @@ public class AdvancedNode {
     public boolean hasLeft() {
         return this.left != null;
     }
+
+    public void removeChildren() {
+        if (hasLeft()) {
+            this.left.setGreaterParent(null);
+            this.setLeft(null);
+        }
+        if (hasRight()) {
+            this.right.setSmallerParent(null);
+            this.setRight(null);
+        }
+    }
 }

@@ -23,8 +23,12 @@ public class AdvancedTreeNode {
     }
 
     private void split(AdvancedTreeNode parent) {
-        double median = this.array.median();
-        AdvancedNode node = new AdvancedNode(median);
-        parent.array.add(node);
+        AdvancedNode median = this.array.median();
+        median.removeChildren();
+        AdvancedTreeNode neighbor = new AdvancedTreeNode();
+
+        neighbor.array = array.right();
+        this.array = array.left();
+
     }
 }
