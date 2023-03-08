@@ -5,6 +5,11 @@ public class AdvancedTreeNodeContainer {
     private AdvancedTreeNode node;
     private AdvancedNode greaterParent;
     private AdvancedNode smallerParent;
+
+    public AdvancedTreeNodeContainer(AdvancedTreeNode neighbor) {
+        this.node = neighbor;
+    }
+
     public AdvancedTreeNode getNode() {
         return node;
     }

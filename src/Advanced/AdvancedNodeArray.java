@@ -33,38 +33,21 @@ public class AdvancedNodeArray {
         if (node.hasLeft() && node.hasRight()) {
             throw new IllegalStateException("Cannot add node with two children to node array");
         }
-        if (node.hasLeft())
-            addLeft(node);
-        else
+        if(node.hasRight())
             addRight(node);
         size++;
     }
 
-    private void addLeft(AdvancedNode node) {
-        int isAdded = 0;
-        for (int i = 0; i < size; i++) {
-            if (isAdded == 0 && node.getValue() > nodes[i].getValue()) {
-                if (i == 0) {
-                    nodes[0].getLeft().setSmallerParent(node);
-                    node.setRight(nodes[0].getLeft());
-                } else {
 
-                }
-                isAdded = 1;
-                nodes[i] = node;
-            }
-            nodes[i+isAdded]=nodes[i];
-        }
-        if (isAdded == 0) {
-            nodes[size] = node;
-        }
-    }
     private void addRight(AdvancedNode node) {
         int isAdded = 0;
-        for (int i = size - 1; i >= 0; i++) {
-            if (isAdded == 0 && node.getValue() > nodes[i].getValue()) {
+        for (int i = 0; i < size; i++) {
+            if (isAdded == 0 && node.getValue() < nodes[i].getValue()) {
                 nodes[i] = node;
                 isAdded = 1;
+                nodes[i].setLeft(node.getRight());
+                if (i != 0)
+                    node.setLeft(nodes[i-1].getRight());
             }
             nodes[i+isAdded]=nodes[i];
         }

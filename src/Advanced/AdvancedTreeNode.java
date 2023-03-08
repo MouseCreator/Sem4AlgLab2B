@@ -28,6 +28,12 @@ public class AdvancedTreeNode {
         AdvancedTreeNode neighbor = new AdvancedTreeNode();
 
         neighbor.array = array.right();
+        neighbor.isLeaf = this.isLeaf;
+
+        median.setRight(new AdvancedTreeNodeContainer(neighbor));
+
+        parent.array.add(median);
+
         this.array = array.left();
 
     }
