@@ -1,6 +1,24 @@
 package Advanced;
 
 public class AdvancedNode {
+
+    private double value;
+
+    private AdvancedTreeNodeContainer left;
+
+    private AdvancedTreeNodeContainer right;
+
+    public AdvancedNode(double value) {
+        this.value =value;
+        this.left = null;
+        this.right = null;
+    }
+    public AdvancedNode(double value, AdvancedTreeNodeContainer left, AdvancedTreeNodeContainer right) {
+        this.left = left;
+        this.value = value;
+        this.right = right;
+    }
+
     public double getValue() {
         return value;
     }
@@ -25,10 +43,6 @@ public class AdvancedNode {
         this.right = right;
     }
 
-    private double value;
 
-    private AdvancedTreeNodeContainer left;
-
-    private AdvancedTreeNodeContainer right;
 
 }

@@ -75,4 +75,8 @@ public class AdvancedNodeArray {
     public boolean isOnMinimumCapacity() {
         return size == minSize;
     }
+
+    public void add(double value) {
+        this.add(new AdvancedNode(value));
+    }
 }
