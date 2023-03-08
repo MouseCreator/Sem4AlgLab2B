@@ -167,4 +167,23 @@ public class AdvancedNodeArray implements Iterable<AdvancedNode> {
         }
         return nodes[size-1];
     }
+
+    public double popLast() {
+        return this.pop(last().getValue()).getValue();
+    }
+
+    public AdvancedNode first() {
+        return nodes[0];
+    }
+    public double popFirst() {
+        return this.pop(first().getValue()).getValue();
+    }
+
+    public boolean contains(double value) {
+        for (int i = 0; i < size; i++) {
+            if (Doubles.isEqual(nodes[i].getValue(), value))
+                return true;
+        }
+        return false;
+    }
 }

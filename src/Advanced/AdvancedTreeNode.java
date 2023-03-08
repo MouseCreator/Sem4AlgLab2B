@@ -99,22 +99,43 @@ public class AdvancedTreeNode {
     }
 
     public void pop(double value) {
-        if (this.isLeaf) {
-            this.array.pop(value);
-        } else {
-            popNotLeaf(value);
+        if (contains(value)) {
+            if (this.isLeaf) {
+                this.array.pop(value);
+            } else {
+                popNotLeaf(value);
+            }
         }
+    }
+
+    private boolean contains(double value) {
+        return this.array.contains(value);
     }
 
     private void popNotLeaf(double value) {
         AdvancedNode node = this.array.getByValue(value);
         if (node.hasLeft() && !node.getLeft().getNode().isMinimum()) {
-            //get from left
+            findLeft(node.getLeft().getNode());
         } else if (node.hasRight() && !node.getRight().getNode().isMinimum()) {
-            //get from right
+            findRight(node.getRight().getNode());
         } else {
             //merge
         }
+    }
+
+    private double findLeft(AdvancedTreeNode left) {
+        AdvancedTreeNode current = left;
+        while (!current.isLeaf) {
+            current = current.array.last().getRight().getNode();
+        }
+        return array.popLast();
+    }
+    private double findRight(AdvancedTreeNode right) {
+        AdvancedTreeNode current = right;
+        while (!current.isLeaf) {
+            current = current.array.last().getLeft().getNode();
+        }
+        return array.popFirst();
     }
 
     @Override
