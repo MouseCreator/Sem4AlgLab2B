@@ -30,9 +30,6 @@ public class AdvancedNodeArray implements Iterable<AdvancedNode> {
             size++;
             return;
         }
-        if (node.hasLeft() && node.hasRight()) {
-            throw new IllegalStateException("Cannot add node with two children to node array");
-        }
         addRight(node);
         size++;
     }

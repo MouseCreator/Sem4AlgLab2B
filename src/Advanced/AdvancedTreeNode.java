@@ -57,6 +57,9 @@ public class AdvancedTreeNode {
         median.setRight(new AdvancedTreeNodeContainer(neighbor));
         median.getRight().setGreaterParent(median);
 
+        median.setLeft(new AdvancedTreeNodeContainer(this));
+        median.getLeft().setSmallerParent(median);
+
         parent.array.add(median);
         parent.isLeaf = false;
         this.array = array.left();
