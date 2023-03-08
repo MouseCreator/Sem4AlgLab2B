@@ -15,4 +15,14 @@ class AdvancedBTreeTest {
         System.out.println(tree.asString());
     }
 
+    @Test
+    void pop() {
+        AdvancedBTree tree = new AdvancedBTree(3);
+        for (int i = 1; i < 22; i++) {
+            tree.add(i);
+        }
+        tree.pop(6);
+        System.out.println(tree.asString());
+    }
+
 }
