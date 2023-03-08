@@ -90,6 +90,14 @@ public class AdvancedNodeArray implements Iterable<AdvancedNode> {
         }
         return nodes[size-1].getRight().getNode();
     }
+    public AdvancedNode getByValue(double value) {
+        for (int i = 0; i < size; i++) {
+            if (value < nodes[i].getValue()) {
+                return nodes[i];
+            }
+        }
+        return nodes[size-1];
+    }
 
     public AdvancedNode median() {
         if (size % 2 == 0) {
@@ -159,13 +167,15 @@ public class AdvancedNodeArray implements Iterable<AdvancedNode> {
         return size;
     }
 
-    public AdvancedNode getByValue(double value) {
+
+
+    public AdvancedNode getExact(double value) {
         for (int i = 0; i < size; i++) {
-            if (value < nodes[i].getValue()) {
+            if (Doubles.isEqual(value, nodes[i].getValue())) {
                 return nodes[i];
             }
         }
-        return nodes[size-1];
+        throw new NoSuchElementException("Cannot find node with value of " + value);
     }
 
     public double popLast() {

@@ -23,6 +23,10 @@ public class AdvancedBTree {
         }
     }
 
+    public void pop(double value) {
+        root.pop(value);
+    }
+
     public String asString() {
         return root.asString(0);
     }

@@ -115,17 +115,24 @@ public class AdvancedTreeNode {
     }
 
     private void popNotLeaf(double value) {
-        AdvancedNode node = this.array.getByValue(value);
+        AdvancedNode node = this.array.getExact(value);
         if (node.hasLeft() && !node.getLeft().getNode().isMinimum()) {
             this.array.replace(value, findLeft(node.getLeft().getNode()));
         } else if (node.hasRight() && !node.getRight().getNode().isMinimum()) {
             this.array.replace(value, findRight(node.getRight().getNode()));
         } else {
-            AdvancedNode superNode = new AdvancedNode(degree);
-            AdvancedTreeNode left = node.getLeft().getNode();
-            AdvancedTreeNode right = node.getRight().getNode();
-            left.array.merge(node.getValue(), right.array);
+            popFromMin(value, node);
         }
+    }
+
+    private void popFromMin(double value, AdvancedNode node) {
+        AdvancedTreeNodeContainer left = node.getLeft();
+        AdvancedTreeNodeContainer right = node.getRight();
+        left.getNode().array.merge(node.getValue(), right.getNode().array);
+        left.setGreaterParent(right.getGreaterParent());
+        right.setSmallerParent(null);
+        this.array.pop(value);
+        left.getNode().pop(value);
     }
 
     private double findLeft(AdvancedTreeNode left) {
