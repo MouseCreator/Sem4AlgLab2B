@@ -186,4 +186,15 @@ public class AdvancedNodeArray implements Iterable<AdvancedNode> {
         }
         return false;
     }
+
+    public void replace(double initial, double changed) {
+        for (int i = 0; i < size; i++) {
+            if (Doubles.isEqual(nodes[i].getValue(), initial)) {
+                nodes[i].setValue(changed);
+                return;
+            }
+        }
+        throw new NoSuchElementException("Can't replace element to " + changed + " because " + initial +
+                "is not included in the array");
+    }
 }

@@ -105,6 +105,8 @@ public class AdvancedTreeNode {
             } else {
                 popNotLeaf(value);
             }
+        } else {
+            //move forward
         }
     }
 
@@ -115,9 +117,9 @@ public class AdvancedTreeNode {
     private void popNotLeaf(double value) {
         AdvancedNode node = this.array.getByValue(value);
         if (node.hasLeft() && !node.getLeft().getNode().isMinimum()) {
-            findLeft(node.getLeft().getNode());
+            this.array.replace(value, findLeft(node.getLeft().getNode()));
         } else if (node.hasRight() && !node.getRight().getNode().isMinimum()) {
-            findRight(node.getRight().getNode());
+            this.array.replace(value, findRight(node.getRight().getNode()));
         } else {
             //merge
         }
