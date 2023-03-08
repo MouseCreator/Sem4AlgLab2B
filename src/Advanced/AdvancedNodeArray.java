@@ -197,4 +197,18 @@ public class AdvancedNodeArray implements Iterable<AdvancedNode> {
         throw new NoSuchElementException("Can't replace element to " + changed + " because " + initial +
                 "is not included in the array");
     }
+
+    public void merge(double value, AdvancedNodeArray array) {
+        if (this.last().getValue() > value || this.last().getValue() > array.first().getValue()) {
+            throw new RuntimeException("Improper parameters for merge function. The output array won't be sorted");
+        }
+        if (this.size != minSize) {
+            throw new IllegalStateException("Called merge, when array is not minimal");
+        }
+        nodes[size] = new AdvancedNode(value, last().getRight(), array.first().getLeft());
+
+        for (int i = size + 1; i < maxSize; i++) {
+            nodes[i] = array.nodes[size + 1 - i];
+        }
+    }
 }

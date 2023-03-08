@@ -121,7 +121,10 @@ public class AdvancedTreeNode {
         } else if (node.hasRight() && !node.getRight().getNode().isMinimum()) {
             this.array.replace(value, findRight(node.getRight().getNode()));
         } else {
-            //merge
+            AdvancedNode superNode = new AdvancedNode(degree);
+            AdvancedTreeNode left = node.getLeft().getNode();
+            AdvancedTreeNode right = node.getRight().getNode();
+            left.array.merge(node.getValue(), right.array);
         }
     }
 
