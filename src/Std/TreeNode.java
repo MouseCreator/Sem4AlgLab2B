@@ -88,7 +88,7 @@ public class TreeNode {
     public void pop(double val) {
         int i = 0;
         for (ListNode listNode : values) {
-            if (Doubles.compare(listNode.value(), val)) {
+            if (Doubles.isEqual(listNode.value(), val)) {
                 if (isLeaf) {
                     values.pop(val);
                 } else {

@@ -1,6 +1,10 @@
 package Advanced;
 
 public class AdvancedTreeNodeContainer {
+
+    private AdvancedTreeNode node;
+    private AdvancedNode greaterParent;
+    private AdvancedNode smallerParent;
     public AdvancedTreeNode getNode() {
         return node;
     }
@@ -9,5 +13,21 @@ public class AdvancedTreeNodeContainer {
         this.node = node;
     }
 
-    private AdvancedTreeNode node;
+
+
+    public AdvancedNode getSmallerParent() {
+        return smallerParent;
+    }
+
+    public void setSmallerParent(AdvancedNode smallerParent) {
+        this.smallerParent = smallerParent;
+    }
+
+    public AdvancedNode getGreaterParent() {
+        return greaterParent;
+    }
+
+    public void setGreaterParent(AdvancedNode greaterParent) {
+        this.greaterParent = greaterParent;
+    }
 }
