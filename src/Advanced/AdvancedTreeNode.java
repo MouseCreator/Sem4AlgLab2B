@@ -4,6 +4,20 @@ public class AdvancedTreeNode {
 
     private AdvancedNodeArray array;
     private boolean isLeaf;
+    private final int degree;
+
+    public AdvancedTreeNode(int degree, double val) {
+        this.isLeaf = true;
+        this.degree = degree;
+        this.array = new AdvancedNodeArray(degree);
+        array.add(val);
+    }
+    public AdvancedTreeNode(int degree) {
+        this.array = new AdvancedNodeArray(degree);
+        this.degree = degree;
+
+    }
+
     public boolean isFull() {
         return array.isFull();
     }
@@ -25,7 +39,7 @@ public class AdvancedTreeNode {
     private void split(AdvancedTreeNode parent) {
         AdvancedNode median = this.array.median();
         median.removeChildren();
-        AdvancedTreeNode neighbor = new AdvancedTreeNode();
+        AdvancedTreeNode neighbor = new AdvancedTreeNode(this.degree);
 
         neighbor.array = array.right();
         neighbor.isLeaf = this.isLeaf;

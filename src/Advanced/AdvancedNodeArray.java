@@ -1,7 +1,6 @@
 package Advanced;
 
 import Std.Doubles;
-import Std.TreeNode;
 
 import java.util.NoSuchElementException;
 
@@ -73,16 +72,6 @@ public class AdvancedNodeArray {
         return result;
     }
 
-    public AdvancedNode replace(AdvancedNode from) {
-        for (int i = 0; i < size; i++) {
-            if (from.getValue() > nodes[i].getValue()) {
-                AdvancedNode result = nodes[i];
-                nodes[i] = from;
-                return result;
-            }
-        }
-        return nodes[size-1];
-    }
     public boolean isFull() {
         return size == maxSize;
     }
