@@ -25,6 +25,7 @@ class AdvancedBTreeTest {
         tree.pop(6);
         System.out.println(tree.asString());
         tree.pop(10);
+        System.out.println(tree.asString());
         tree.pop(12);
         System.out.println(tree.asString());
     }

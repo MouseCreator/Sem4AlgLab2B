@@ -221,7 +221,11 @@ public class AdvancedNodeArray implements Iterable<AdvancedNode> {
             throw new IllegalStateException("Called merge, when array is not minimal");
         }
         nodes[size] = new AdvancedNode(value, last().getRight(), array.first().getLeft());
-
+        if (last().hasRight())
+            last().getRight().setGreaterParent(nodes[size]);
+        if (array.first().hasLeft())
+            array.first().getLeft().setSmallerParent(nodes[size]);
+        last().setRight(nodes[size].getLeft());
         for (int i = 0; i < size; i++) {
             nodes[size + 1 + i] = array.nodes[i];
         }
