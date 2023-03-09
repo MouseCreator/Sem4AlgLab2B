@@ -21,7 +21,11 @@ class AdvancedBTreeTest {
         for (int i = 1; i < 22; i++) {
             tree.add(i);
         }
+        System.out.println(tree.asString());
         tree.pop(6);
+        System.out.println(tree.asString());
+        tree.pop(10);
+        tree.pop(12);
         System.out.println(tree.asString());
     }
 

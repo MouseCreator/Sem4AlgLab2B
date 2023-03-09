@@ -25,6 +25,9 @@ class BTreeTest {
         }
         System.out.println(tree.asString());
         tree.pop(8);
+        tree.pop(9);
+        tree.pop(10);
+        tree.pop(40);
         System.out.println(tree.asString());
 
     }
