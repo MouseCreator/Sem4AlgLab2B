@@ -27,15 +27,18 @@ public class ClassicBTreeNode {
     private void addNotLeaf(double value) {
         int addTo = values.position(value);
         if (children.get(addTo).isFull()) {
-            splitAddMoveTo(value, addTo);
+            splitChild(value, addTo);
+            addTo = values.position(value);
         }
+        children.get(addTo).add(value);
     }
 
-    private void splitAddMoveTo(double value, int addTo) {
+    private void splitChild(double value, int addTo) {
         SmallNode splitResult = children.get(addTo).split();
         values.add(splitResult.median());
-
         addNotLeaf(value);
+        children.replace(addTo, splitResult.left());
+        children.insert(addTo+1,splitResult.right());
     }
 
     private SmallNode split() {
