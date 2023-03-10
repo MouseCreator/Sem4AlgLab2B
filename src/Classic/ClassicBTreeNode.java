@@ -1,7 +1,7 @@
 package Classic;
 
 public class ClassicBTreeNode {
-    private final ClassicTreeArray values;
+    private ClassicTreeArray values;
     private final ClassicChildrenArray children;
     private final int degree;
 
@@ -19,11 +19,24 @@ public class ClassicBTreeNode {
         this.isLeaf = isLeaf;
     }
     public void add(double value) {
+        if (isFull()) {
+            addToFullRoot();
+            return;
+        }
         if (isLeaf) {
             this.values.add(value);
         } else {
             this.addNotLeaf(value);
         }
+    }
+
+    private void addToFullRoot() {
+        SmallNode small = this.split();
+        this.isLeaf = false;
+        this.values = new ClassicTreeArray(degree);
+        this.add(small.median());
+        this.children.replace(0, small.left());
+        this.children.replace(1, small.right());
     }
 
     private void addNotLeaf(double value) {
@@ -53,5 +66,28 @@ public class ClassicBTreeNode {
 
     private boolean isFull() {
         return values.isFull();
+    }
+
+    public String asString(int tab) {
+        return isLeaf ? leafAsString(tab) : innerAsString(tab);
+    }
+    private String leafAsString(int tab) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < values.size(); i++) {
+            builder.append("\t".repeat(tab)).append(values.get(i)).append("\n");
+        }
+        builder.append("\t".repeat(tab)).append("_\n");
+        return builder.toString();
+    }
+
+    private String innerAsString(int tab) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < values.size(); i++) {
+            builder.append("\t".repeat(tab)).append(values.get(i)).append("\n");
+            builder.append(children.get(i).asString(tab+1));
+        }
+        builder.append(children.last().asString(tab+1));
+        builder.append("\t".repeat(tab)).append("_\n");
+        return builder.toString();
     }
 }

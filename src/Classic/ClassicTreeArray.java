@@ -143,4 +143,8 @@ public class ClassicTreeArray implements Iterable<Double> {
         result.size = s;
         return result;
     }
+
+    public int size() {
+        return size;
+    }
 }

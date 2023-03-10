@@ -51,4 +51,8 @@ public class ClassicChildrenArray {
         }
         nodes[index]=value;
     }
+
+    public ClassicBTreeNode last() {
+        return this.nodes[size-1];
+    }
 }
