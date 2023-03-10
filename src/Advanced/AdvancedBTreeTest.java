@@ -11,6 +11,9 @@ class AdvancedBTreeTest {
         AdvancedBTree tree = new AdvancedBTree(3);
         for (int i = 1; i < 22; i++) {
             tree.add(i);
+            if (i == 6) {
+                System.out.println(tree.asString());
+            }
         }
         System.out.println(tree.asString());
     }

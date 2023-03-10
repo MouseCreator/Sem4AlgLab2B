@@ -1,5 +1,7 @@
 package Advanced;
 
+import Std.Doubles;
+
 public class AdvancedTreeNode {
 
     private AdvancedNodeArray array;
@@ -52,11 +54,12 @@ public class AdvancedTreeNode {
         neighbor.array = array.right();
         neighbor.isLeaf = this.isLeaf;
 
+
         median.setRight(new AdvancedTreeNodeContainer(neighbor));
-        median.getRight().setGreaterParent(median);
+        median.getRight().setSmallerParent(median);
 
         median.setLeft(new AdvancedTreeNodeContainer(this));
-        median.getLeft().setSmallerParent(median);
+        median.getLeft().setGreaterParent(median);
 
         parent.array.add(median);
         parent.isLeaf = false;
@@ -117,6 +120,13 @@ public class AdvancedTreeNode {
         if (next.hasSmallerParent() && next.getSmallerParent().hasLeft() &&
                 !next.getSmallerParent().getLeft().getNode().isMinimum()) {
             AdvancedNode borrowed = next.getSmallerParent().getLeft().getNode().array.borrowLast();
+            if (borrowed.hasRight()) {
+                borrowed.setLeft(borrowed.getRight());
+                borrowed.setRight(next.getNode().array.first().getLeft());
+                borrowed.getRight().setSmallerParent(borrowed);
+                borrowed.getLeft().setGreaterParent(borrowed);
+                borrowed.getLeft().setSmallerParent(null);
+            }
             next.getNode().array.add(borrowed);
 
             double temp = next.getNode().array.first().getValue();
@@ -126,6 +136,13 @@ public class AdvancedTreeNode {
         } else if (next.hasGreaterParent() && next.getGreaterParent().hasRight() &&
                 !next.getGreaterParent().getRight().getNode().isMinimum()) {
             AdvancedNode borrowed = next.getGreaterParent().getRight().getNode().array.borrowFirst();
+            if (borrowed.hasLeft()) {
+                borrowed.setRight(borrowed.getLeft());
+                borrowed.setLeft(next.getNode().array.last().getRight());
+                borrowed.getLeft().setGreaterParent(borrowed);
+                borrowed.getRight().setSmallerParent(borrowed);
+                borrowed.getRight().setGreaterParent(null);
+            }
             next.getNode().array.add(borrowed);
 
             double temp = next.getNode().array.last().getValue();
@@ -143,12 +160,12 @@ public class AdvancedTreeNode {
         }
     }
 
-    private static AdvancedTreeNodeContainer mergeWith(AdvancedTreeNodeContainer node1, AdvancedTreeNodeContainer target) {
-        target.getNode().array.merge(node1.getSmallerParent().getValue(), node1.getNode().array);
-        target.setGreaterParent(node1.getGreaterParent());
-        node1.setSmallerParent(null);
-        node1.setGreaterParent(null);
-        return target;
+    private static AdvancedTreeNodeContainer mergeWith(AdvancedTreeNodeContainer greaterNode, AdvancedTreeNodeContainer smallerNode) {
+        smallerNode.getNode().array.merge(greaterNode.getSmallerParent().getValue(), greaterNode.getNode().array);
+        smallerNode.setGreaterParent(greaterNode.getGreaterParent());
+        greaterNode.setSmallerParent(null);
+        greaterNode.setGreaterParent(null);
+        return smallerNode;
     }
 
     private boolean contains(double value) {
