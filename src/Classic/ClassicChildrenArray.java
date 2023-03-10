@@ -73,4 +73,8 @@ public class ClassicChildrenArray {
     public boolean isNotMinimum() {
         return size != minSize;
     }
+
+    public ClassicBTreeNode first() {
+        return nodes[0];
+    }
 }

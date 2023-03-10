@@ -123,12 +123,30 @@ public class ClassicBTreeNode {
 
     private void popFromChild(double v) {
         int removeFrom = values.position(v);
-
+        double d;
         if (children.get(removeFrom).isNotMinimum()) {
-
+            d = findLeft(children.get(removeFrom));
+        } else if (children.get(removeFrom+1).isNotMinimum()) {
+            d = findRight(children.get(removeFrom));
         }
     }
 
+
+
+    private double findLeft(ClassicBTreeNode startNode) {
+        ClassicBTreeNode current = startNode;
+        while (!startNode.isLeaf) {
+            current = startNode.children.last();
+        }
+        return current.values.last();
+    }
+    private double findRight(ClassicBTreeNode startNode) {
+        ClassicBTreeNode current = startNode;
+        while (!startNode.isLeaf) {
+            current = startNode.children.first();
+        }
+        return current.values.first();
+    }
     private boolean isNotMinimum() {
         return children.isNotMinimum();
     }

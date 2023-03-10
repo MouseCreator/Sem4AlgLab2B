@@ -151,4 +151,16 @@ public class ClassicTreeArray implements Iterable<Double> {
     public void popValue(double v) {
         pop(position(v));
     }
+
+    public double last() {
+        if (isEmpty())
+            throw new IndexOutOfBoundsException("Can't get last in empty array");
+        return array[size-1];
+    }
+
+    public double first() {
+        if (isEmpty())
+            throw new IndexOutOfBoundsException("Can't get first in empty array");
+        return array[0];
+    }
 }
