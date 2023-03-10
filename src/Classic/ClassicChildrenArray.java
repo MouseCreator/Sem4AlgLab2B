@@ -22,16 +22,20 @@ public class ClassicChildrenArray {
 
     public ClassicChildrenArray left() {
         ClassicChildrenArray result = new ClassicChildrenArray(minSize);
-        int s = size/2;
-        System.arraycopy(nodes, 0, result.nodes, 0, s);
-        result.size = s;
+        if (size > 0) {
+            int s = size / 2;
+            System.arraycopy(nodes, 0, result.nodes, 0, s);
+            result.size = s;
+        }
         return result;
     }
     public ClassicChildrenArray right() {
         ClassicChildrenArray result = new ClassicChildrenArray(minSize);
-        int s = size/2;
-        System.arraycopy(nodes, s+1, result.nodes, 0, s);
-        result.size = s;
+        if (size > 0) {
+            int s = size / 2;
+            System.arraycopy(nodes, s + 1, result.nodes, 0, s);
+            result.size = s;
+        }
         return result;
     }
 }

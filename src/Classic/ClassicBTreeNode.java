@@ -27,15 +27,22 @@ public class ClassicBTreeNode {
     private void addNotLeaf(double value) {
         int addTo = values.position(value);
         if (children.get(addTo).isFull()) {
-            children.get(addTo).split(this);
+            splitAddMoveTo(value, addTo);
         }
     }
 
-    private void split(ClassicBTreeNode parent) {
+    private void splitAddMoveTo(double value, int addTo) {
+        SmallNode splitResult = children.get(addTo).split();
+        values.add(splitResult.median());
+
+        addNotLeaf(value);
+    }
+
+    private SmallNode split() {
         double median = this.values.median();
         ClassicBTreeNode left = new ClassicBTreeNode(values.leftToMedian(), children.left(), degree);
         ClassicBTreeNode right = new ClassicBTreeNode(values.rightToMedian(), children.right(), degree);
-        parent.add(median);
+        return new SmallNode(median, left, right);
     }
 
     private boolean isFull() {
