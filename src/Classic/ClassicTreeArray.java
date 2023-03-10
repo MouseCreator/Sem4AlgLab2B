@@ -1,7 +1,6 @@
 package Classic;
 
-import Advanced.AdvancedNode;
-
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class ClassicTreeArray implements Iterable<Double> {
@@ -17,21 +16,28 @@ public class ClassicTreeArray implements Iterable<Double> {
         size = 0;
         array = new double[maxSize];
     }
-
+    protected ArrayList<Double> toArrayList() {
+        ArrayList<Double> doubles = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            doubles.add(array[i]);
+        }
+        return doubles;
+    }
     public void add(double value) {
         if (size == maxSize) {
             throw new IndexOutOfBoundsException("Adding value to a full array of size " + size);
         }
-        size++;
-        for (int i = size; i >= 0; i--) {
+
+        for (int i = size - 1; i >= 0; i--) {
             if (value > array[i]) {
                 array[i+1] = value;
-
+                size++;
                 return;
             }
             array[i+1] = array[i];
         }
         array[0] = value;
+        size++;
     }
     @Override
     public String toString() {
@@ -71,5 +77,11 @@ public class ClassicTreeArray implements Iterable<Double> {
                 throw new UnsupportedOperationException();
             }
         };
+    }
+
+    public double get(int j) {
+        if (j >= size)
+            throw new IndexOutOfBoundsException("Trying to get " + j + " in array of size " + size);
+        return array[j];
     }
 }
