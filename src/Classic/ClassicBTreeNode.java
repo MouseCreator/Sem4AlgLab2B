@@ -7,7 +7,7 @@ public class ClassicBTreeNode {
 
     private boolean isLeaf;
     public ClassicBTreeNode(int degree) {
-        this.degree = 0;
+        this.degree = degree;
         values = new ClassicTreeArray(degree);
         children = new ClassicChildrenArray(degree);
         this.isLeaf = true;
@@ -34,24 +34,24 @@ public class ClassicBTreeNode {
         SmallNode small = this.split();
         this.isLeaf = false;
         this.values = new ClassicTreeArray(degree);
-        this.add(small.median());
-        this.children.replace(0, small.left());
-        this.children.replace(1, small.right());
+        this.values.add(small.median());
+        this.children.clear();
+        this.children.addLast(small.left());
+        this.children.addLast(small.right());
     }
 
     private void addNotLeaf(double value) {
         int addTo = values.position(value);
         if (children.get(addTo).isFull()) {
-            splitChild(value, addTo);
+            splitChild(addTo);
             addTo = values.position(value);
         }
         children.get(addTo).add(value);
     }
 
-    private void splitChild(double value, int addTo) {
+    private void splitChild(int addTo) {
         SmallNode splitResult = children.get(addTo).split();
         values.add(splitResult.median());
-        addNotLeaf(value);
         children.replace(addTo, splitResult.left());
         children.insert(addTo+1,splitResult.right());
         this.isLeaf = false;

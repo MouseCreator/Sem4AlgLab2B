@@ -1,7 +1,7 @@
 package Classic;
 
 public class ClassicChildrenArray {
-    private final ClassicBTreeNode[] nodes;
+    private ClassicBTreeNode[] nodes;
 
     private final int minSize;
     private final int maxSize;
@@ -33,7 +33,7 @@ public class ClassicChildrenArray {
         ClassicChildrenArray result = new ClassicChildrenArray(minSize);
         if (size > 0) {
             int s = size / 2;
-            System.arraycopy(nodes, s + 1, result.nodes, 0, s);
+            System.arraycopy(nodes, s, result.nodes, 0, s);
             result.size = s;
         }
         return result;
@@ -43,6 +43,14 @@ public class ClassicChildrenArray {
             throw new IndexOutOfBoundsException("Cannot replace at index " + index + " in array of size " + size);
         nodes[index] = newValue;
     }
+
+    public void addLast(ClassicBTreeNode newValue) {
+        if (size >= maxSize)
+            throw new IndexOutOfBoundsException("Array is over its size of " + maxSize);
+        nodes[size] = newValue;
+        size++;
+
+    }
     public void insert(int index, ClassicBTreeNode value) {
         if (size >= maxSize || index > size)
             throw new IndexOutOfBoundsException("Cannot insert at index " + index + " in array of size " + size);
@@ -50,9 +58,15 @@ public class ClassicChildrenArray {
             nodes[i+1]=nodes[i];
         }
         nodes[index]=value;
+        size++;
     }
 
     public ClassicBTreeNode last() {
         return this.nodes[size-1];
+    }
+
+    public void clear() {
+        this.nodes = new ClassicBTreeNode[maxSize];
+        size = 0;
     }
 }

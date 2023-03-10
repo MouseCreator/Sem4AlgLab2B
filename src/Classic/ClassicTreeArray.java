@@ -126,7 +126,7 @@ public class ClassicTreeArray implements Iterable<Double> {
         if (size % 2 == 0) {
             throw new IllegalStateException("Trying to get median in array of even size");
         }
-        return array[size-1];
+        return array[size/2];
     }
 
     public ClassicTreeArray leftToMedian() {
