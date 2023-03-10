@@ -1,20 +1,22 @@
 package Classic;
 
 public class ClassicBTreeNode {
-    private ClassicTreeArray values;
-    private ClassicChildrenArray children;
-    private int degree;
+    private final ClassicTreeArray values;
+    private final ClassicChildrenArray children;
+    private final int degree;
 
     private boolean isLeaf;
     public ClassicBTreeNode(int degree) {
         this.degree = 0;
         values = new ClassicTreeArray(degree);
         children = new ClassicChildrenArray(degree);
+        this.isLeaf = true;
     }
-    private ClassicBTreeNode(ClassicTreeArray array, ClassicChildrenArray children, int degree) {
+    private ClassicBTreeNode(ClassicTreeArray array, ClassicChildrenArray children, int degree, boolean isLeaf) {
         this.values = array;
         this.children = children;
         this.degree = degree;
+        this.isLeaf = isLeaf;
     }
     public void add(double value) {
         if (isLeaf) {
@@ -39,12 +41,13 @@ public class ClassicBTreeNode {
         addNotLeaf(value);
         children.replace(addTo, splitResult.left());
         children.insert(addTo+1,splitResult.right());
+        this.isLeaf = false;
     }
 
     private SmallNode split() {
         double median = this.values.median();
-        ClassicBTreeNode left = new ClassicBTreeNode(values.leftToMedian(), children.left(), degree);
-        ClassicBTreeNode right = new ClassicBTreeNode(values.rightToMedian(), children.right(), degree);
+        ClassicBTreeNode left = new ClassicBTreeNode(values.leftToMedian(), children.left(), degree, this.isLeaf);
+        ClassicBTreeNode right = new ClassicBTreeNode(values.rightToMedian(), children.right(), degree, this.isLeaf);
         return new SmallNode(median, left, right);
     }
 
