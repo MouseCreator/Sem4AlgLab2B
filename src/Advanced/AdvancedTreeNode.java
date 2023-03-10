@@ -1,7 +1,5 @@
 package Advanced;
 
-import Std.Doubles;
-
 public class AdvancedTreeNode {
 
     private AdvancedNodeArray array;
@@ -112,6 +110,7 @@ public class AdvancedTreeNode {
             moveDown(value).getNode().pop(value);
         }
     }
+
 
     private AdvancedTreeNodeContainer moveDown(double value) {
         AdvancedTreeNodeContainer next = array.getByValue(value);
