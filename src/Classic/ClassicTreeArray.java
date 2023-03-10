@@ -147,4 +147,8 @@ public class ClassicTreeArray implements Iterable<Double> {
     public int size() {
         return size;
     }
+
+    public void popValue(double v) {
+        pop(position(v));
+    }
 }

@@ -15,8 +15,8 @@ public class ClassicChildrenArray {
         nodes = new ClassicBTreeNode[maxSize];
     }
 
-    public ClassicBTreeNode get(int addTo) {
-        return nodes[addTo];
+    public ClassicBTreeNode get(int i) {
+        return nodes[i];
     }
 
 
@@ -68,5 +68,9 @@ public class ClassicChildrenArray {
     public void clear() {
         this.nodes = new ClassicBTreeNode[maxSize];
         size = 0;
+    }
+
+    public boolean isNotMinimum() {
+        return size != minSize;
     }
 }

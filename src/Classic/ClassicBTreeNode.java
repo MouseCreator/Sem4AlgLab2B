@@ -1,6 +1,5 @@
 package Classic;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ClassicBTreeNode {
@@ -107,4 +106,31 @@ public class ClassicBTreeNode {
             children.last().toArray(doubles);
         }
     }
+
+    public void pop(double v) {
+        if (isLeaf) {
+            this.values.popValue(v);
+        } else {
+            popNotLeaf(v);
+        }
+    }
+
+    private void popNotLeaf(double v) {
+        if (values.contains(v)) {
+            popFromChild(v);
+        }
+    }
+
+    private void popFromChild(double v) {
+        int removeFrom = values.position(v);
+
+        if (children.get(removeFrom).isNotMinimum()) {
+
+        }
+    }
+
+    private boolean isNotMinimum() {
+        return children.isNotMinimum();
+    }
+
 }
