@@ -1,5 +1,8 @@
 package Classic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ClassicBTreeNode {
     private ClassicTreeArray values;
     private final ClassicChildrenArray children;
@@ -89,5 +92,19 @@ public class ClassicBTreeNode {
         builder.append(children.last().asString(tab+1));
         builder.append("\t".repeat(tab)).append("_\n");
         return builder.toString();
+    }
+
+    public void toArray(List<Double> doubles) {
+        if (isLeaf) {
+            for (double d : values) {
+                doubles.add(d);
+            }
+        } else {
+            for (int i = 0; i < values.size(); i++) {
+                children.get(i).toArray(doubles);
+                doubles.add(values.get(i));
+            }
+            children.last().toArray(doubles);
+        }
     }
 }

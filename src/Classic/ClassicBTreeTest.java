@@ -2,6 +2,9 @@ package Classic;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClassicBTreeTest {
@@ -17,5 +20,13 @@ class ClassicBTreeTest {
             }
         }
         System.out.println(tree.asString());
+        assertTrue(isSorted(tree.toArray()));
+    }
+    private boolean isSorted(List<Double> list) {
+        for (int i = 0; i < list.size() - 1; ++i) {
+            if (list.get(i) > list.get(i+1))
+                return false;
+        }
+        return true;
     }
 }

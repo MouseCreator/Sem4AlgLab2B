@@ -1,5 +1,7 @@
 package Classic;
 
+import java.util.ArrayList;
+
 public class ClassicBTree {
 
     private ClassicBTreeNode root;
@@ -16,6 +18,12 @@ public class ClassicBTree {
     }
     public void get(double value) {
 
+    }
+
+    public ArrayList<Double> toArray() {
+        ArrayList<Double> doubles = new ArrayList<>();
+        root.toArray(doubles);
+        return doubles;
     }
 
     public String asString() {
