@@ -123,14 +123,33 @@ public class ClassicBTreeNode {
 
     private void popFromChild(double v) {
         int removeFrom = values.position(v);
-        double d;
-        if (children.get(removeFrom).isNotMinimum()) {
-            d = findLeft(children.get(removeFrom));
-        } else if (children.get(removeFrom+1).isNotMinimum()) {
-            d = findRight(children.get(removeFrom));
+        if (simpleInsert(removeFrom)) {
+            mergeInsert(removeFrom, v);
         }
     }
 
+    private void mergeInsert(int removeFrom, double v) {
+        double median = values.pop(removeFrom);
+
+    }
+
+    private boolean simpleInsert(int removeFrom) {
+        double d;
+        if (children.get(removeFrom).isNotMinimum()) {
+            d = findLeft(children.get(removeFrom));
+            this.values.insert(removeFrom, d);
+            children.get(removeFrom).pop(d);
+        } else if (children.get(removeFrom +1).isNotMinimum()) {
+            d = findRight(children.get(removeFrom));
+            this.values.insert(removeFrom, d);
+            children.get(removeFrom+1).pop(d);
+        } else {
+            return true;
+        }
+
+
+        return false;
+    }
 
 
     private double findLeft(ClassicBTreeNode startNode) {

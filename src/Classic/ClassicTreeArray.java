@@ -163,4 +163,16 @@ public class ClassicTreeArray implements Iterable<Double> {
             throw new IndexOutOfBoundsException("Can't get first in empty array");
         return array[0];
     }
+
+    public void insert(int position, double d) {
+        if (position < size) {
+            array[position] = d;
+        } else if (position == size) {
+            array[size] = d;
+            size++;
+        } else {
+            throw new IndexOutOfBoundsException("Position cannot be greater than size: " + size);
+        }
+    }
+
 }
