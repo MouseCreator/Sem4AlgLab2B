@@ -16,7 +16,7 @@ class ClassicBTreeTest {
 
     private ClassicBTree formTree() {
         ClassicBTree tree = new ClassicBTree(3);
-        for (int i = 1; i <= 22; i++) {
+         for (int i = 1; i <= 22; i++) {
             try {
                 tree.add(i);
             } catch (Exception e) {

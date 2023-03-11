@@ -16,8 +16,8 @@ public class ClassicBTree {
     public void pop(double value) {
         root.pop(value);
     }
-    public void get(double value) {
-
+    public boolean get(double value) {
+        return true;
     }
 
     public ArrayList<Double> toArray() {
@@ -28,5 +28,9 @@ public class ClassicBTree {
 
     public String asString() {
         return root.asString(0);
+    }
+    @Override
+    public String toString() {
+        return this.toArray().toString();
     }
 }

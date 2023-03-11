@@ -47,7 +47,7 @@ public class ClassicBTreeNode {
 
     public void add(double value) {
         if (isFull()) {
-            addToFullRoot();
+            addToFullRoot(value);
             return;
         }
         if (isLeaf) {
@@ -57,7 +57,7 @@ public class ClassicBTreeNode {
         }
     }
 
-    private void addToFullRoot() {
+    private void addToFullRoot(double value) {
         SmallNode small = this.split();
         this.isLeaf = false;
         this.values = new ClassicTreeArray(degree);
@@ -65,6 +65,7 @@ public class ClassicBTreeNode {
         this.children.clear();
         this.children.addLast(small.left());
         this.children.addLast(small.right());
+        this.add(value);
     }
 
     private void addNotLeaf(double value) {
