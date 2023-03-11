@@ -175,4 +175,17 @@ public class ClassicTreeArray implements Iterable<Double> {
         }
     }
 
+    public double popLast() {
+        size--;
+        return array[size];
+    }
+
+    public double popFirst() {
+        double d = array[0];
+        for (int i = 0; i < size; i++) {
+            array[i] = array[i+1];
+        }
+        size--;
+        return d;
+    }
 }

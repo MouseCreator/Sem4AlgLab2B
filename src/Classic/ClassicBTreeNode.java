@@ -133,10 +133,35 @@ public class ClassicBTreeNode {
     }
 
     public void pop(double v) {
-        if (isLeaf) {
-            this.values.popValue(v);
+        if (values.contains(v)) {
+            if (isLeaf) {
+                this.values.popValue(v);
+            } else {
+                popNotLeaf(v);
+            }
         } else {
-            popNotLeaf(v);
+            int removeFrom = values.position(v);
+            if (children.get(removeFrom).isNotMinimum()) {
+                children.get(removeFrom).pop(v);
+            } else {
+                appendNode(removeFrom, v);
+            }
+        }
+    }
+
+    private void appendNode(int removeFrom, double v) {
+        if (removeFrom != 0 && this.children.get(removeFrom-1).isNotMinimum()) {
+            this.children.get(removeFrom).values.add(this.values.get(removeFrom));
+            this.values.insert(removeFrom, this.children.get(removeFrom-1).values.popLast());
+        } else if (removeFrom != values.size() - 1 && this.children.get(removeFrom+1).isNotMinimum()) {
+            this.children.get(removeFrom).values.add(this.values.get(removeFrom));
+            this.values.insert(removeFrom, this.children.get(removeFrom+1).values.popFirst());
+        } else if (removeFrom != 0) {
+            mergeInsert(removeFrom, v);
+        } else if (removeFrom != values.size() - 1) {
+            mergeInsert(removeFrom-1, v);
+        } else {
+            throw new IllegalStateException("Cannot merge children nodes!");
         }
     }
 
