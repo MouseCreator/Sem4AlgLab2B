@@ -39,8 +39,8 @@ class ClassicBTreeTest {
         ClassicBTree tree = formTree();
         System.out.println(tree.asString());
         tree.pop(6);
-        System.out.println(tree.asString());
         tree.pop(12);
+        System.out.println(tree.asString());
         tree.pop(18);
         System.out.println(tree.asString());
         assertTrue(isSorted(tree.toArray()));

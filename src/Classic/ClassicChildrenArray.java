@@ -41,7 +41,7 @@ public class ClassicChildrenArray implements Iterable<ClassicBTreeNode>{
         return result;
     }
     public void replace(int index, ClassicBTreeNode newValue) {
-        if (size >= maxSize || index > size)
+        if (size > maxSize || index > size)
             throw new IndexOutOfBoundsException("Cannot replace at index " + index + " in array of size " + size);
         nodes[index] = newValue;
     }
@@ -104,11 +104,11 @@ public class ClassicChildrenArray implements Iterable<ClassicBTreeNode>{
     }
 
     public void remove(int index) {
-        for (int i = index; i < size; i++) {
+        for (int i = index; i < size - 1; i++) {
             nodes[i] = nodes[i+1];
         }
         if (size != maxSize)
-            nodes[size] = null;
+            nodes[size-1] = null;
         size--;
     }
 

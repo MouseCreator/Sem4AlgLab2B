@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ClassicBTree {
 
-    private final ClassicBTreeNode root;
+    private ClassicBTreeNode root;
 
     public ClassicBTree(int degree) {
         this.root = new ClassicBTreeNode(degree);
@@ -15,6 +15,9 @@ public class ClassicBTree {
     }
     public void pop(double value) {
         root.pop(value);
+        if (root.isEmpty()) {
+            root = root.toChild();
+        }
     }
     public boolean get(double value) {
         return true;

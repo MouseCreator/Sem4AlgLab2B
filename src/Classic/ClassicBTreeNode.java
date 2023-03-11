@@ -172,7 +172,7 @@ public class ClassicBTreeNode {
     }
 
     private void popNotLeaf(double v) {
-        int removeFrom = values.position(v);
+        int removeFrom = values.positionExact(v);
         if (simpleInsert(removeFrom)) {
             mergeInsert(removeFrom, v);
         }
@@ -180,9 +180,9 @@ public class ClassicBTreeNode {
 
     private void mergeInsert(int removeFrom, double v) {
         double median = values.pop(removeFrom);
-        ClassicBTreeNode node = new ClassicBTreeNode(degree, isLeaf, new SmallNode(median, children.get(removeFrom),
-                children.get(removeFrom+1)));
-        this.children.insert(removeFrom, node);
+        ClassicBTreeNode node = new ClassicBTreeNode(degree, this.children.get(removeFrom).isLeaf,
+                new SmallNode(median, children.get(removeFrom), children.get(removeFrom+1)));
+        this.children.replace(removeFrom, node);
         this.children.remove(removeFrom+1);
         this.children.get(removeFrom).pop(v);
     }
@@ -221,7 +221,14 @@ public class ClassicBTreeNode {
         return current.values.first();
     }
     private boolean isNotMinimum() {
-        return children.isNotMinimum();
+        return values.isNotMinimum();
     }
 
+    public boolean isEmpty() {
+        return this.values.isEmpty();
+    }
+
+    public ClassicBTreeNode toChild() {
+        return this.children.first();
+    }
 }

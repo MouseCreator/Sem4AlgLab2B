@@ -4,6 +4,7 @@ import Std.Doubles;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ClassicTreeArray implements Iterable<Double> {
     private final double[] array;
@@ -49,7 +50,7 @@ public class ClassicTreeArray implements Iterable<Double> {
             throw new IndexOutOfBoundsException("Can't get " + position + " in array of size " + size);
         }
         double toPop = array[position];
-        for (int i = position; i < size; i++) {
+        for (int i = position; i < size - 1; i++) {
             array[i] = array[i+1];
         }
         size--;
@@ -63,7 +64,14 @@ public class ClassicTreeArray implements Iterable<Double> {
         }
         return size;
     }
-
+    public int positionExact(double value) {
+        for (int i = 0; i < size; i++) {
+            if (Doubles.isEqual(value, array[i])) {
+                return i;
+            }
+        }
+        throw new NoSuchElementException("Can't find value " + value + " in the array");
+    }
     public boolean isEmpty() {
         return size == 0;
     }
@@ -149,7 +157,7 @@ public class ClassicTreeArray implements Iterable<Double> {
     }
 
     public void popValue(double v) {
-        pop(position(v));
+        pop(positionExact(v));
     }
 
     public double last() {
@@ -187,5 +195,9 @@ public class ClassicTreeArray implements Iterable<Double> {
         }
         size--;
         return d;
+    }
+
+    public boolean isNotMinimum() {
+        return size > minSize;
     }
 }
