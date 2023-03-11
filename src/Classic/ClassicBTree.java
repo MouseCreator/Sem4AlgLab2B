@@ -20,7 +20,7 @@ public class ClassicBTree {
         }
     }
     public boolean get(double value) {
-        return true;
+        return root.get(value);
     }
 
     public ArrayList<Double> toArray() {

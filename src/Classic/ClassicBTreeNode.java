@@ -231,4 +231,13 @@ public class ClassicBTreeNode {
     public ClassicBTreeNode toChild() {
         return this.children.first();
     }
+
+    public boolean get(double value) {
+        if (values.contains(value))
+            return true;
+        if (isLeaf)
+            return false;
+        int moveTo = values.position(value);
+        return children.get(moveTo).get(value);
+    }
 }

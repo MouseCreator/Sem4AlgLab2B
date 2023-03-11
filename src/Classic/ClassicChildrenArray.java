@@ -7,8 +7,6 @@ public class ClassicChildrenArray implements Iterable<ClassicBTreeNode>{
 
     private final int minSize;
     private final int maxSize;
-
-
     private int size;
 
     public ClassicChildrenArray(int degree) {
