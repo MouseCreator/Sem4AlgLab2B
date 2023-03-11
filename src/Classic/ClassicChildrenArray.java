@@ -72,9 +72,6 @@ public class ClassicChildrenArray implements Iterable<ClassicBTreeNode>{
         size = 0;
     }
 
-    public boolean isNotMinimum() {
-        return size != minSize;
-    }
 
     public ClassicBTreeNode first() {
         return nodes[0];
@@ -107,8 +104,7 @@ public class ClassicChildrenArray implements Iterable<ClassicBTreeNode>{
         for (int i = index; i < size - 1; i++) {
             nodes[i] = nodes[i+1];
         }
-        if (size != maxSize)
-            nodes[size-1] = null;
+        nodes[size-1] = null;
         size--;
     }
 

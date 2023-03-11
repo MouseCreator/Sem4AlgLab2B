@@ -194,7 +194,7 @@ public class ClassicBTreeNode {
             this.values.insert(removeFrom, d);
             children.get(removeFrom).pop(d);
         } else if (children.get(removeFrom +1).isNotMinimum()) {
-            d = findRight(children.get(removeFrom));
+            d = findRight(children.get(removeFrom+1));
             this.values.insert(removeFrom, d);
             children.get(removeFrom+1).pop(d);
         } else {
