@@ -45,4 +45,15 @@ class ClassicBTreeTest {
         System.out.println(tree.asString());
         assertTrue(isSorted(tree.toArray()));
     }
+
+    @Test
+    void get() {
+        ClassicBTree tree = formTree();
+        assertTrue(tree.get(2));
+        assertTrue(tree.get(5));
+        assertTrue(tree.get(8));
+        assertFalse(tree.get(5.5));
+        assertFalse(tree.get(-4));
+        assertFalse(tree.get(29));
+    }
 }
