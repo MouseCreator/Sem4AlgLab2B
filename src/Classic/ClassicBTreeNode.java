@@ -147,6 +147,7 @@ public class ClassicBTreeNode {
                 children.get(removeFrom).pop(v);
             } else {
                 appendNode(removeFrom, v);
+                children.get(removeFrom).pop(v);
             }
         }
     }
@@ -171,12 +172,6 @@ public class ClassicBTreeNode {
     }
 
     private void popNotLeaf(double v) {
-        if (values.contains(v)) {
-            popFromChild(v);
-        }
-    }
-
-    private void popFromChild(double v) {
         int removeFrom = values.position(v);
         if (simpleInsert(removeFrom)) {
             mergeInsert(removeFrom, v);
