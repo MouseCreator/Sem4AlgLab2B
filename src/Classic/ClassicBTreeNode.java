@@ -20,6 +20,31 @@ public class ClassicBTreeNode {
         this.degree = degree;
         this.isLeaf = isLeaf;
     }
+
+    public ClassicBTreeNode(int degree, boolean isLeaf, SmallNode smallNode) {
+        this.degree = degree;
+        this.isLeaf =isLeaf;
+        this.values = new ClassicTreeArray(degree);
+        this.children = new ClassicChildrenArray(degree);
+        fromSmallNode(smallNode);
+    }
+
+    private void fromSmallNode(SmallNode smallNode) {
+        for (double d : smallNode.left().values) {
+            this.values.add(d);
+        }
+        this.values.add(smallNode.median());
+        for (double d : smallNode.right().values) {
+            this.values.add(d);
+        }
+        for (ClassicBTreeNode child : smallNode.left().children) {
+            this.children.addLast(child);
+        }
+        for (ClassicBTreeNode child: smallNode.right().children) {
+            this.children.addLast(child);
+        }
+    }
+
     public void add(double value) {
         if (isFull()) {
             addToFullRoot();
@@ -130,7 +155,11 @@ public class ClassicBTreeNode {
 
     private void mergeInsert(int removeFrom, double v) {
         double median = values.pop(removeFrom);
-
+        ClassicBTreeNode node = new ClassicBTreeNode(degree, isLeaf, new SmallNode(median, children.get(removeFrom),
+                children.get(removeFrom+1)));
+        this.children.insert(removeFrom, node);
+        this.children.remove(removeFrom+1);
+        this.children.get(removeFrom).pop(v);
     }
 
     private boolean simpleInsert(int removeFrom) {

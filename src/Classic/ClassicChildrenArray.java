@@ -1,6 +1,8 @@
 package Classic;
 
-public class ClassicChildrenArray {
+import java.util.Iterator;
+
+public class ClassicChildrenArray implements Iterable<ClassicBTreeNode>{
     private ClassicBTreeNode[] nodes;
 
     private final int minSize;
@@ -76,5 +78,37 @@ public class ClassicChildrenArray {
 
     public ClassicBTreeNode first() {
         return nodes[0];
+    }
+
+    @Override
+    public Iterator<ClassicBTreeNode> iterator() {
+        return new Iterator<>() {
+
+            private int num = -1;
+
+            @Override
+            public boolean hasNext() {
+                return num < size - 1;
+            }
+
+            @Override
+            public ClassicBTreeNode next() {
+                return nodes[++num];
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+    }
+
+    public void remove(int index) {
+        for (int i = index; i < size; i++) {
+            nodes[i] = nodes[i+1];
+        }
+        if (size != maxSize)
+            nodes[size] = null;
+        size--;
     }
 }
