@@ -111,4 +111,25 @@ public class ClassicChildrenArray implements Iterable<ClassicBTreeNode>{
             nodes[size] = null;
         size--;
     }
+
+    public ClassicBTreeNode popFirst() {
+        ClassicBTreeNode d = nodes[0];
+        for (int i = 0; i < size; i++) {
+            nodes[i] = nodes[i+1];
+        }
+        size--;
+        return d;
+    }
+
+    public ClassicBTreeNode popLast() {
+        size--;
+        ClassicBTreeNode v = nodes[size];
+        nodes[size] = null;
+        return v;
+    }
+
+    public void addFirst(ClassicBTreeNode value) {
+        nodes[size] = value;
+        size++;
+    }
 }

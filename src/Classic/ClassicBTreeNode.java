@@ -134,6 +134,7 @@ public class ClassicBTreeNode {
     }
 
     public void pop(double v) {
+
         if (values.contains(v)) {
             if (isLeaf) {
                 this.values.popValue(v);
@@ -151,16 +152,19 @@ public class ClassicBTreeNode {
     }
 
     private void appendNode(int removeFrom, double v) {
+        ClassicBTreeNode node = this.children.get(removeFrom);
         if (removeFrom != 0 && this.children.get(removeFrom-1).isNotMinimum()) {
-            this.children.get(removeFrom).values.add(this.values.get(removeFrom));
+            node.values.add(this.values.get(removeFrom));
             this.values.insert(removeFrom, this.children.get(removeFrom-1).values.popLast());
-        } else if (removeFrom != values.size() - 1 && this.children.get(removeFrom+1).isNotMinimum()) {
-            this.children.get(removeFrom).values.add(this.values.get(removeFrom));
+            node.children.addFirst(this.children.get(removeFrom+1).children.popLast());
+        } else if (removeFrom != node.values.size() && this.children.get(removeFrom+1).isNotMinimum()) {
+            node.values.add(this.values.get(removeFrom));
             this.values.insert(removeFrom, this.children.get(removeFrom+1).values.popFirst());
+            node.children.addLast(this.children.get(removeFrom+1).children.popFirst());
         } else if (removeFrom != 0) {
-            mergeInsert(removeFrom, v);
-        } else if (removeFrom != values.size() - 1) {
             mergeInsert(removeFrom-1, v);
+        } else if (removeFrom != node.values.size()) {
+            mergeInsert(removeFrom, v);
         } else {
             throw new IllegalStateException("Cannot merge children nodes!");
         }
