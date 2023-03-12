@@ -152,19 +152,49 @@ public class ClassicBTreeNode {
         }
     }
 
-    public double popLeft(double v) {
+    public double popLeft() {
         if (isLeaf) {
             return values.popFirst();
         }
-        int moveTo = 0;
-        if (children.first().isNotMinimum()) {
-            return children.first().popLeft(v);
-        } else {
-            appendNode(0, v);
-            return children.first().popLeft(v);
+        if (!children.first().isNotMinimum()) {
+            appendLeft();
         }
+        return children.first().popLeft();
     }
 
+    public double popRight() {
+        if (isLeaf) {
+            return values.popLast();
+        }
+        if (!children.last().isNotMinimum()) {
+            appendRight();
+        }
+        return children.last().popRight();
+    }
+
+    private void appendLeft() {
+        ClassicBTreeNode node = this.children.first();
+        if (this.children.get(1).isNotMinimum()) {
+            node.values.add(this.values.first());
+            this.values.insert(0, this.children.get(1).values.popFirst());
+            node.children.addLast(this.children.get(1).children.popFirst());
+        } else {
+            mergeInsert(0);
+            this.children.first().popLeft();
+        }
+    }
+    private void appendRight() {
+        ClassicBTreeNode node = this.children.last();
+        int lastIndex = node.values.size()-1;
+        if (this.children.get(lastIndex).isNotMinimum()) {
+            node.values.add(this.values.last());
+            this.values.insert(lastIndex, this.children.last().values.popLast());
+            node.children.addFirst(this.children.get(lastIndex-1).children.popLast());
+        } else {
+            mergeInsert(lastIndex);
+            this.children.last().popRight();
+        }
+    }
     private void appendNode(int removeFrom, double v) {
         ClassicBTreeNode node = this.children.get(removeFrom);
         if (removeFrom != 0 && this.children.get(removeFrom-1).isNotMinimum()) {
@@ -176,9 +206,11 @@ public class ClassicBTreeNode {
             this.values.insert(removeFrom, this.children.get(removeFrom+1).values.popFirst());
             node.children.addLast(this.children.get(removeFrom+1).children.popFirst());
         } else if (removeFrom != 0) {
-            mergeInsert(removeFrom-1, v);
+            mergeInsert(removeFrom-1);
+            this.children.get(removeFrom).pop(v);
         } else if (removeFrom != node.values.size()) {
-            mergeInsert(removeFrom, v);
+            mergeInsert(removeFrom);
+            this.children.get(removeFrom).pop(v);
         } else {
             throw new IllegalStateException("Cannot merge children nodes!");
         }
@@ -187,12 +219,12 @@ public class ClassicBTreeNode {
     private void popNotLeaf(double v) {
         int removeFrom = values.positionExact(v);
         if (simpleInsert(removeFrom)) {
-            mergeInsert(removeFrom, v);
+            mergeInsert(removeFrom);
             this.children.get(removeFrom).pop(v);
         }
     }
 
-    private void mergeInsert(int removeFrom, double v) {
+    private void mergeInsert(int removeFrom) {
         double median = values.pop(removeFrom);
         ClassicBTreeNode node = new ClassicBTreeNode(degree, this.children.get(removeFrom).isLeaf,
                 new SmallNode(median, children.get(removeFrom), children.get(removeFrom+1)));
@@ -201,38 +233,16 @@ public class ClassicBTreeNode {
     }
 
     private boolean simpleInsert(int removeFrom) {
-        double d;
         if (children.get(removeFrom).isNotMinimum()) {
-            d = findLeft(children.get(removeFrom));
-            this.values.insert(removeFrom, d);
-            children.get(removeFrom).pop(d);
+            this.values.insert(removeFrom, children.get(removeFrom).popRight());
         } else if (children.get(removeFrom +1).isNotMinimum()) {
-            d = findRight(children.get(removeFrom+1));
-            this.values.insert(removeFrom, d);
-            children.get(removeFrom+1).pop(d);
+            this.values.insert(removeFrom, children.get(removeFrom+1).popLeft());
         } else {
             return true;
         }
-
-
         return false;
     }
 
-
-    private double findLeft(ClassicBTreeNode startNode) {
-        ClassicBTreeNode current = startNode;
-        while (!startNode.isLeaf) {
-            current = startNode.children.last();
-        }
-        return current.values.last();
-    }
-    private double findRight(ClassicBTreeNode startNode) {
-        ClassicBTreeNode current = startNode;
-        while (!startNode.isLeaf) {
-            current = startNode.children.first();
-        }
-        return current.values.first();
-    }
     private boolean isNotMinimum() {
         return values.isNotMinimum();
     }
