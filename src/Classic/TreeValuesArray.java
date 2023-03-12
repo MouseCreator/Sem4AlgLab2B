@@ -191,6 +191,9 @@ class TreeValuesArray implements Iterable<Double> {
         return size > minSize;
     }
 
+    /**
+     * Вилучає всі значення з масиву
+     */
     public void clear() {
         this.size = 0;
     }

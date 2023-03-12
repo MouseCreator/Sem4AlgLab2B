@@ -24,8 +24,8 @@ class TreeChildrenArray implements Iterable<BTreeNode>{
 
     /**
      *
-     * @param i
-     * @return
+     * @param i - індекс елемента
+     * @return - елемент на i-й позиції
      */
     public BTreeNode get(int i) {
         if (i >= size) {
@@ -34,7 +34,10 @@ class TreeChildrenArray implements Iterable<BTreeNode>{
         return nodes[i];
     }
 
-
+    /**
+     *
+     * @return лівий підмасив (всі значення менші медіани)
+     */
     public TreeChildrenArray left() {
         TreeChildrenArray result = new TreeChildrenArray(minSize);
         if (size > 0) {
@@ -44,6 +47,11 @@ class TreeChildrenArray implements Iterable<BTreeNode>{
         }
         return result;
     }
+
+    /**
+     *
+     * @return правий підмасив (всі значення більші медіани)
+     */
     public TreeChildrenArray right() {
         TreeChildrenArray result = new TreeChildrenArray(minSize);
         if (size > 0) {
@@ -53,12 +61,22 @@ class TreeChildrenArray implements Iterable<BTreeNode>{
         }
         return result;
     }
+
+    /**
+     * Замінює значення з індексом {@param index} на {@param newValue}
+     * @param index - індекс нового елемента, який не перевищує розміру масиву
+     * @param newValue - значення, що потрібно вставити
+     */
     public void replace(int index, BTreeNode newValue) {
-        if (size > maxSize || index > size)
+        if (index > size)
             throw new IndexOutOfBoundsException("Cannot replace at index " + index + " in array of size " + size);
         nodes[index] = newValue;
     }
 
+    /**
+     * Додає значення вкінці масиву
+     * @param newValue - значення, що потрібно додати
+     */
     public void addLast(BTreeNode newValue) {
         if (size >= maxSize)
             throw new IndexOutOfBoundsException("Array is over its size of " + maxSize);
@@ -66,6 +84,12 @@ class TreeChildrenArray implements Iterable<BTreeNode>{
         size++;
 
     }
+
+    /**
+     * Вставляє значення за вказаним індексом
+     * @param index - місце, куди потрібно вставити значення
+     * @param value - значення, що потрібно вставити
+     */
     public void insert(int index, BTreeNode value) {
         if (size >= maxSize || index > size)
             throw new IndexOutOfBoundsException("Cannot insert at index " + index + " in array of size " + size);
@@ -76,20 +100,33 @@ class TreeChildrenArray implements Iterable<BTreeNode>{
         size++;
     }
 
+    /**
+     *
+     * @return перший елемент масиву
+     */
+    public BTreeNode first() {
+        return nodes[0];
+    }
+    /**
+     *
+     * @return останній елемент масиву
+     */
     public BTreeNode last() {
         return this.nodes[size-1];
     }
 
+    /**
+     * Видаляє всі значення з масиву
+     */
     public void clear() {
         this.nodes = new BTreeNode[maxSize];
         size = 0;
     }
 
-
-    public BTreeNode first() {
-        return nodes[0];
-    }
-
+    /**
+     *
+     * @return ітератор для проходу по масиву
+     */
     @Override
     public Iterator<BTreeNode> iterator() {
         return new Iterator<>() {
@@ -113,6 +150,10 @@ class TreeChildrenArray implements Iterable<BTreeNode>{
         };
     }
 
+    /**
+     * Вилучає значення з масиву
+     * @param index - номер елемента
+     */
     public void remove(int index) {
         for (int i = index; i < size - 1; i++) {
             nodes[i] = nodes[i+1];
@@ -121,6 +162,10 @@ class TreeChildrenArray implements Iterable<BTreeNode>{
         size--;
     }
 
+    /**
+     *
+     * @return вилучене перше значення
+     */
     public BTreeNode popFirst() {
         BTreeNode d = nodes[0];
         for (int i = 0; i < size; i++) {
@@ -130,6 +175,10 @@ class TreeChildrenArray implements Iterable<BTreeNode>{
         return d;
     }
 
+    /**
+     *
+     * @return вилучене останнє значення
+     */
     public BTreeNode popLast() {
         size--;
         BTreeNode v = nodes[size];
@@ -137,6 +186,10 @@ class TreeChildrenArray implements Iterable<BTreeNode>{
         return v;
     }
 
+    /**
+     * Вставляє елемент на початку масиву
+     * @param value - значення, що потрібно дадати
+     */
     public void addFirst(BTreeNode value) {
         nodes[size] = value;
         size++;
