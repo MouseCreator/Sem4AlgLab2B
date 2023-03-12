@@ -47,9 +47,10 @@ public class InputReader {
                 break;
             if (line.contains("degree")) {
                line = line.replaceAll("[^0-9]","");
-               return Integer.parseInt(line);
+               int i = Integer.parseInt(line);
+               return Math.max(i, 3);
             }
         }
-        return 2;
+        return 3;
     }
 }
