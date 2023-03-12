@@ -60,7 +60,7 @@ public class BTree {
      * @return рядкове представлення дерева у форматі табуляцій
      */
     public String asString() {
-        return root.asString(0);
+        return root.isEmpty() ? "Empty tree" : root.asString(0);
     }
 
     /**
