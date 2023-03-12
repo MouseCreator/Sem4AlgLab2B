@@ -8,11 +8,21 @@ import java.io.IOException;
  * Клас для виводу у текстовий файл
  */
 public class OutputWriter {
-    private static final String outputFile = "data/output.txt";
-    private static final String loggerFile = "data/logger.txt";
+    private static final String outputFile = "data/output.txt"; //вивідний файл
+    private static final String loggerFile = "data/logger.txt"; //логуючий файл
+
+    /**
+     * Запис у файл для виведення
+     * @param message - повідомлення
+     */
     public static void write(String message) {
         writeTo(message, outputFile);
     }
+
+    /**
+     * Запис у файл для логування
+     * @param message - повідомлення
+     */
     public static void log(String message) {
         writeTo(message, loggerFile);
     }
@@ -27,6 +37,10 @@ public class OutputWriter {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Оновлення файлів
+     */
     public static void refresh() {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile, false));

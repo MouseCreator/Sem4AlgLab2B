@@ -10,4 +10,6 @@ add 8 write
 add 9 write
 add 10 write
 pop 3 write
+pop 9 write
+pop 6 write
 
