@@ -2,26 +2,26 @@ package Classic;
 
 import java.util.Iterator;
 
-class ClassicChildrenArray implements Iterable<ClassicBTreeNode>{
-    private ClassicBTreeNode[] nodes;
+class TreeChildrenArray implements Iterable<BTreeNode>{
+    private BTreeNode[] nodes;
 
     private final int minSize;
     private final int maxSize;
     private int size;
 
-    public ClassicChildrenArray(int degree) {
+    public TreeChildrenArray(int degree) {
         this.minSize = degree;
         this.maxSize = 2 * degree;
-        nodes = new ClassicBTreeNode[maxSize];
+        nodes = new BTreeNode[maxSize];
     }
 
-    public ClassicBTreeNode get(int i) {
+    public BTreeNode get(int i) {
         return nodes[i];
     }
 
 
-    public ClassicChildrenArray left() {
-        ClassicChildrenArray result = new ClassicChildrenArray(minSize);
+    public TreeChildrenArray left() {
+        TreeChildrenArray result = new TreeChildrenArray(minSize);
         if (size > 0) {
             int s = size / 2;
             System.arraycopy(nodes, 0, result.nodes, 0, s);
@@ -29,8 +29,8 @@ class ClassicChildrenArray implements Iterable<ClassicBTreeNode>{
         }
         return result;
     }
-    public ClassicChildrenArray right() {
-        ClassicChildrenArray result = new ClassicChildrenArray(minSize);
+    public TreeChildrenArray right() {
+        TreeChildrenArray result = new TreeChildrenArray(minSize);
         if (size > 0) {
             int s = size / 2;
             System.arraycopy(nodes, s, result.nodes, 0, s);
@@ -38,20 +38,20 @@ class ClassicChildrenArray implements Iterable<ClassicBTreeNode>{
         }
         return result;
     }
-    public void replace(int index, ClassicBTreeNode newValue) {
+    public void replace(int index, BTreeNode newValue) {
         if (size > maxSize || index > size)
             throw new IndexOutOfBoundsException("Cannot replace at index " + index + " in array of size " + size);
         nodes[index] = newValue;
     }
 
-    public void addLast(ClassicBTreeNode newValue) {
+    public void addLast(BTreeNode newValue) {
         if (size >= maxSize)
             throw new IndexOutOfBoundsException("Array is over its size of " + maxSize);
         nodes[size] = newValue;
         size++;
 
     }
-    public void insert(int index, ClassicBTreeNode value) {
+    public void insert(int index, BTreeNode value) {
         if (size >= maxSize || index > size)
             throw new IndexOutOfBoundsException("Cannot insert at index " + index + " in array of size " + size);
         for (int i = size-1; i >= index; i--) {
@@ -61,22 +61,22 @@ class ClassicChildrenArray implements Iterable<ClassicBTreeNode>{
         size++;
     }
 
-    public ClassicBTreeNode last() {
+    public BTreeNode last() {
         return this.nodes[size-1];
     }
 
     public void clear() {
-        this.nodes = new ClassicBTreeNode[maxSize];
+        this.nodes = new BTreeNode[maxSize];
         size = 0;
     }
 
 
-    public ClassicBTreeNode first() {
+    public BTreeNode first() {
         return nodes[0];
     }
 
     @Override
-    public Iterator<ClassicBTreeNode> iterator() {
+    public Iterator<BTreeNode> iterator() {
         return new Iterator<>() {
 
             private int num = -1;
@@ -87,7 +87,7 @@ class ClassicChildrenArray implements Iterable<ClassicBTreeNode>{
             }
 
             @Override
-            public ClassicBTreeNode next() {
+            public BTreeNode next() {
                 return nodes[++num];
             }
 
@@ -106,8 +106,8 @@ class ClassicChildrenArray implements Iterable<ClassicBTreeNode>{
         size--;
     }
 
-    public ClassicBTreeNode popFirst() {
-        ClassicBTreeNode d = nodes[0];
+    public BTreeNode popFirst() {
+        BTreeNode d = nodes[0];
         for (int i = 0; i < size; i++) {
             nodes[i] = nodes[i+1];
         }
@@ -115,14 +115,14 @@ class ClassicChildrenArray implements Iterable<ClassicBTreeNode>{
         return d;
     }
 
-    public ClassicBTreeNode popLast() {
+    public BTreeNode popLast() {
         size--;
-        ClassicBTreeNode v = nodes[size];
+        BTreeNode v = nodes[size];
         nodes[size] = null;
         return v;
     }
 
-    public void addFirst(ClassicBTreeNode value) {
+    public void addFirst(BTreeNode value) {
         nodes[size] = value;
         size++;
     }

@@ -24,7 +24,7 @@ class ClassicTreeArrayTest {
         sorted.sort(Doubles::compare);
         for (int i = 0; i < attempts; i++) {
             Collections.shuffle(values);
-            ClassicTreeArray arr = new ClassicTreeArray(degree);
+            TreeValuesArray arr = new TreeValuesArray(degree);
             for (int j = 0; j < values.size(); j++) {
                 if (j < degree * 2)
                     arr.add(values.get(j));

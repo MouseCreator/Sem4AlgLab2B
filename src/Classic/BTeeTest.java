@@ -7,10 +7,10 @@ import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ClassicBTreeTest {
+class BTeeTest {
     @Test
     void add() {
-        ClassicBTree tree = formTree();
+        BTee tree = formTree();
         System.out.println(tree.asString());
         assertTrue(isSorted(tree.toArray()));
         assertEquals(22, tree.size());
@@ -19,7 +19,7 @@ class ClassicBTreeTest {
 
     @Test
     void addEqualValues() {
-        ClassicBTree tree = new ClassicBTree(3);
+        BTee tree = new BTee(3);
         for (int i = 1; i <= 22; i++) {
             try {
                 tree.add(2);
@@ -32,8 +32,8 @@ class ClassicBTreeTest {
         assertTrue(isSorted(tree.toArray()));
     }
 
-    private ClassicBTree formTree() {
-        ClassicBTree tree = new ClassicBTree(3);
+    private BTee formTree() {
+        BTee tree = new BTee(3);
          for (int i = 1; i <= 22; i++) {
             try {
                 tree.add(i);
@@ -54,7 +54,7 @@ class ClassicBTreeTest {
 
     @Test
     void pop() {
-        ClassicBTree tree = formTree();
+        BTee tree = formTree();
         System.out.println(tree.asString());
         tree.pop(6);
         tree.pop(12);
@@ -68,7 +68,7 @@ class ClassicBTreeTest {
 
     @Test
     void get() {
-        ClassicBTree tree = formTree();
+        BTee tree = formTree();
         assertTrue(tree.get(2));
         assertTrue(tree.get(5));
         assertTrue(tree.get(8));
@@ -79,7 +79,7 @@ class ClassicBTreeTest {
 
     @Test
     void small() {
-        ClassicBTree tree = new ClassicBTree(2);
+        BTee tree = new BTee(2);
         tree.add(1);
         tree.pop(1);
         tree.add(2);

@@ -3,30 +3,30 @@ package Classic;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-class ClassicBTreeNode {
-    private ClassicTreeArray values;
-    private final ClassicChildrenArray children;
+class BTreeNode {
+    private TreeValuesArray values;
+    private final TreeChildrenArray children;
     private final int degree;
 
     private boolean isLeaf;
-    public ClassicBTreeNode(int degree) {
+    public BTreeNode(int degree) {
         this.degree = degree;
-        values = new ClassicTreeArray(degree);
-        children = new ClassicChildrenArray(degree);
+        values = new TreeValuesArray(degree);
+        children = new TreeChildrenArray(degree);
         this.isLeaf = true;
     }
-    private ClassicBTreeNode(ClassicTreeArray array, ClassicChildrenArray children, int degree, boolean isLeaf) {
+    private BTreeNode(TreeValuesArray array, TreeChildrenArray children, int degree, boolean isLeaf) {
         this.values = array;
         this.children = children;
         this.degree = degree;
         this.isLeaf = isLeaf;
     }
 
-    public ClassicBTreeNode(int degree, boolean isLeaf, SmallNode smallNode) {
+    public BTreeNode(int degree, boolean isLeaf, SmallNode smallNode) {
         this.degree = degree;
         this.isLeaf =isLeaf;
-        this.values = new ClassicTreeArray(degree);
-        this.children = new ClassicChildrenArray(degree);
+        this.values = new TreeValuesArray(degree);
+        this.children = new TreeChildrenArray(degree);
         fromSmallNode(smallNode);
     }
 
@@ -38,10 +38,10 @@ class ClassicBTreeNode {
         for (double d : smallNode.right().values) {
             this.values.add(d);
         }
-        for (ClassicBTreeNode child : smallNode.left().children) {
+        for (BTreeNode child : smallNode.left().children) {
             this.children.addLast(child);
         }
-        for (ClassicBTreeNode child: smallNode.right().children) {
+        for (BTreeNode child: smallNode.right().children) {
             this.children.addLast(child);
         }
     }
@@ -61,7 +61,7 @@ class ClassicBTreeNode {
     private void addToFullRoot(double value) {
         SmallNode small = this.split();
         this.isLeaf = false;
-        this.values = new ClassicTreeArray(degree);
+        this.values = new TreeValuesArray(degree);
         this.values.add(small.median());
         this.children.clear();
         this.children.addLast(small.left());
@@ -88,8 +88,8 @@ class ClassicBTreeNode {
 
     private SmallNode split() {
         double median = this.values.median();
-        ClassicBTreeNode left = new ClassicBTreeNode(values.leftToMedian(), children.left(), degree, this.isLeaf);
-        ClassicBTreeNode right = new ClassicBTreeNode(values.rightToMedian(), children.right(), degree, this.isLeaf);
+        BTreeNode left = new BTreeNode(values.leftToMedian(), children.left(), degree, this.isLeaf);
+        BTreeNode right = new BTreeNode(values.rightToMedian(), children.right(), degree, this.isLeaf);
         return new SmallNode(median, left, right);
     }
 
@@ -177,7 +177,7 @@ class ClassicBTreeNode {
     }
 
     private void appendLeft() {
-        ClassicBTreeNode node = this.children.first();
+        BTreeNode node = this.children.first();
         if (this.children.get(1).isNotMinimum()) {
             node.values.add(this.values.first());
             this.values.insert(0, this.children.get(1).values.popFirst());
@@ -188,7 +188,7 @@ class ClassicBTreeNode {
         }
     }
     private void appendRight() {
-        ClassicBTreeNode node = this.children.last();
+        BTreeNode node = this.children.last();
         int lastIndex = node.values.size()-1;
         if (this.children.get(lastIndex).isNotMinimum()) {
             node.values.add(this.values.last());
@@ -200,7 +200,7 @@ class ClassicBTreeNode {
         }
     }
     private void appendNode(int removeFrom, double v) {
-        ClassicBTreeNode node = this.children.get(removeFrom);
+        BTreeNode node = this.children.get(removeFrom);
         if (removeFrom != 0 && this.children.get(removeFrom-1).isNotMinimum()) {
             node.values.add(this.values.get(removeFrom));
             this.values.insert(removeFrom, this.children.get(removeFrom-1).values.popLast());
@@ -230,7 +230,7 @@ class ClassicBTreeNode {
 
     private void mergeInsert(int removeFrom) {
         double median = values.pop(removeFrom);
-        ClassicBTreeNode node = new ClassicBTreeNode(degree, this.children.get(removeFrom).isLeaf,
+        BTreeNode node = new BTreeNode(degree, this.children.get(removeFrom).isLeaf,
                 new SmallNode(median, children.get(removeFrom), children.get(removeFrom+1)));
         this.children.replace(removeFrom, node);
         this.children.remove(removeFrom+1);
@@ -255,9 +255,9 @@ class ClassicBTreeNode {
         return this.values.isEmpty();
     }
 
-    public ClassicBTreeNode toChild() {
+    public BTreeNode toChild() {
         if (isLeaf)
-            return new ClassicBTreeNode(degree);
+            return new BTreeNode(degree);
         return this.children.first();
     }
 
@@ -273,7 +273,7 @@ class ClassicBTreeNode {
     public int fullSize() {
         int size = values.size();
         if (!isLeaf) {
-            for (ClassicBTreeNode node : children) {
+            for (BTreeNode node : children) {
                 size += node.fullSize();
             }
         }
@@ -281,7 +281,7 @@ class ClassicBTreeNode {
     }
 
     public int height() {
-        ClassicBTreeNode node = this;
+        BTreeNode node = this;
         int height = 0;
         while (!node.isLeaf) {
             node = node.children.first();

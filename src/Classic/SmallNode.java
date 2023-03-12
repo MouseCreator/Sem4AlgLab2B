@@ -1,4 +1,4 @@
 package Classic;
 
-record SmallNode(double median, ClassicBTreeNode left, ClassicBTreeNode right) {
+record SmallNode(double median, BTreeNode left, BTreeNode right) {
 }

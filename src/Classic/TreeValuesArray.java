@@ -4,7 +4,7 @@ import Std.Doubles;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-class ClassicTreeArray implements Iterable<Double> {
+class TreeValuesArray implements Iterable<Double> {
     private final double[] array;
     private final int minSize;
     private final int maxSize;
@@ -12,7 +12,7 @@ class ClassicTreeArray implements Iterable<Double> {
     private final int degree;
     private int size;
 
-    public ClassicTreeArray(int degree) {
+    public TreeValuesArray(int degree) {
         minSize = degree - 1;
         maxSize = 2 * degree - 1;
         this.degree = degree;
@@ -128,15 +128,15 @@ class ClassicTreeArray implements Iterable<Double> {
         return array[size/2];
     }
 
-    public ClassicTreeArray leftToMedian() {
-        ClassicTreeArray result = new ClassicTreeArray(degree);
+    public TreeValuesArray leftToMedian() {
+        TreeValuesArray result = new TreeValuesArray(degree);
         int s = size/2;
         System.arraycopy(array, 0, result.array, 0, s);
         result.size = s;
         return result;
     }
-    public ClassicTreeArray rightToMedian() {
-        ClassicTreeArray result = new ClassicTreeArray(degree);
+    public TreeValuesArray rightToMedian() {
+        TreeValuesArray result = new TreeValuesArray(degree);
         int s = size/2;
         System.arraycopy(array, s+1, result.array, 0, s);
         result.size = s;

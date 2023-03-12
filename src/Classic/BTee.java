@@ -2,12 +2,12 @@ package Classic;
 
 import java.util.ArrayList;
 
-public class ClassicBTree {
+public class BTee {
 
-    protected ClassicBTreeNode root;
+    protected BTreeNode root;
 
-    public ClassicBTree(int degree) {
-        this.root = new ClassicBTreeNode(degree);
+    public BTee(int degree) {
+        this.root = new BTreeNode(degree);
     }
 
     public void add(double value) {
