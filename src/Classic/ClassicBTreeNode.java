@@ -279,4 +279,14 @@ class ClassicBTreeNode {
         }
         return size;
     }
+
+    public int height() {
+        ClassicBTreeNode node = this;
+        int height = 0;
+        while (!node.isLeaf) {
+            node = node.children.first();
+            height++;
+        }
+        return height;
+    }
 }

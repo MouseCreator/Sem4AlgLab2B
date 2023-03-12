@@ -13,6 +13,8 @@ class ClassicBTreeTest {
         ClassicBTree tree = formTree();
         System.out.println(tree.asString());
         assertTrue(isSorted(tree.toArray()));
+        assertEquals(22, tree.size());
+        assertEquals(2, tree.height());
     }
 
     @Test
@@ -82,5 +84,6 @@ class ClassicBTreeTest {
         tree.pop(1);
         tree.add(2);
         assertEquals(1, tree.size());
+        assertEquals(0, tree.height());
     }
 }

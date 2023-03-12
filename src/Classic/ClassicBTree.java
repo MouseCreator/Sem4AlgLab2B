@@ -40,4 +40,7 @@ public class ClassicBTree {
     public int size() {
         return root.fullSize();
     }
+    public int height() {
+        return root.height();
+    }
 }
