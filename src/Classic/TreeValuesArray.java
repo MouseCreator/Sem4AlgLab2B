@@ -190,4 +190,8 @@ class TreeValuesArray implements Iterable<Double> {
     public boolean isNotMinimum() {
         return size > minSize;
     }
+
+    public void clear() {
+        this.size = 0;
+    }
 }
