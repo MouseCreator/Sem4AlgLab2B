@@ -1,0 +1,13 @@
+Created tree
+Added 1.2
+Added 1.0
+Added 2.3
+Added -4.5
+Added 44.0
+Added 9.0
+Added 11.55
+Added 4.8
+Added 9.5
+Popped 44.0
+Added 55.0
+Found55.0

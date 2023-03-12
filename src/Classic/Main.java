@@ -13,7 +13,7 @@ public class Main {
             ArrayList<String> inputs = InputReader.readFile(); // зчитування значень
             BTree tree = new BTree(InputReader.readDegree()); //створення порожнього дерева
             OutputWriter.refresh();
-            OutputWriter.write("Created tree");
+            OutputWriter.log("Created tree");
             Mode mode = Mode.ADD;
             for (String s : inputs) {
                 if (isCommand(s)) {
@@ -24,8 +24,9 @@ public class Main {
                     } else if (s.equalsIgnoreCase("get")) {
                         mode = Mode.GET;
                     } else if (s.equalsIgnoreCase("write")) {
-                        OutputWriter.write(tree.asString());
+                        OutputWriter.log( ("B-Tree:\n") + tree.asString());
                     }
+                    continue;
                 }
                 try {
                     switch (mode) {
@@ -51,7 +52,7 @@ public class Main {
             System.out.println("Cannot parse value of " + s);
             return;
         }
-        OutputWriter.write( tree.get(d) ? "Found" + d : "Didn't find " + d);
+        OutputWriter.log( tree.get(d) ? "Found " + d : "Didn't find " + d);
     }
 
     private static void addToTree(BTree tree, String s) {
@@ -63,7 +64,7 @@ public class Main {
             return;
         }
         tree.add(d);
-        OutputWriter.write("Added " + d);
+        OutputWriter.log("Added " + d);
     }
     private static void removeFromTree(BTree tree, String s) {
         double d;
@@ -75,14 +76,15 @@ public class Main {
         }
         try {
             tree.pop(d);
-            OutputWriter.write("Popped " + d);
+            OutputWriter.log("Popped " + d);
         } catch (NoSuchElementException e) {
-            OutputWriter.write("No element " + d + " in the tree");
+            OutputWriter.log("No element " + d + " in the tree");
         }
     }
     private static boolean isCommand(String s) {
         return s.equalsIgnoreCase("add") ||
-                s.equalsIgnoreCase("pop") || s.equalsIgnoreCase("get");
+                s.equalsIgnoreCase("pop") || s.equalsIgnoreCase("get") ||
+                s.equalsIgnoreCase("write");
     }
 
 }
