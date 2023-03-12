@@ -3,7 +3,7 @@ package Classic;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class ClassicBTreeNode {
+class ClassicBTreeNode {
     private ClassicTreeArray values;
     private final ClassicChildrenArray children;
     private final int degree;

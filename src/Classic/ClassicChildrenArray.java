@@ -2,7 +2,7 @@ package Classic;
 
 import java.util.Iterator;
 
-public class ClassicChildrenArray implements Iterable<ClassicBTreeNode>{
+class ClassicChildrenArray implements Iterable<ClassicBTreeNode>{
     private ClassicBTreeNode[] nodes;
 
     private final int minSize;

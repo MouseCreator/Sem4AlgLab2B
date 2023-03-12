@@ -4,7 +4,7 @@ import Std.Doubles;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ClassicTreeArray implements Iterable<Double> {
+class ClassicTreeArray implements Iterable<Double> {
     private final double[] array;
     private final int minSize;
     private final int maxSize;
