@@ -14,6 +14,21 @@ class ClassicBTreeTest {
         assertTrue(isSorted(tree.toArray()));
     }
 
+    @Test
+    void addEqualValues() {
+        ClassicBTree tree = new ClassicBTree(3);
+        for (int i = 1; i <= 22; i++) {
+            try {
+                tree.add(2);
+            } catch (Exception e) {
+                System.err.println("Exception at " + i);
+                throw e;
+            }
+        }
+        System.out.println(tree.asString());
+        assertTrue(isSorted(tree.toArray()));
+    }
+
     private ClassicBTree formTree() {
         ClassicBTree tree = new ClassicBTree(3);
          for (int i = 1; i <= 22; i++) {
