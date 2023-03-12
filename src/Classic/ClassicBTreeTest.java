@@ -74,4 +74,13 @@ class ClassicBTreeTest {
         assertFalse(tree.get(-4));
         assertFalse(tree.get(29));
     }
+
+    @Test
+    void small() {
+        ClassicBTree tree = new ClassicBTree(2);
+        tree.add(1);
+        tree.pop(1);
+        tree.add(2);
+        assertEquals(1, tree.size());
+    }
 }

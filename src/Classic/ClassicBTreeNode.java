@@ -256,6 +256,8 @@ class ClassicBTreeNode {
     }
 
     public ClassicBTreeNode toChild() {
+        if (isLeaf)
+            return new ClassicBTreeNode(degree);
         return this.children.first();
     }
 

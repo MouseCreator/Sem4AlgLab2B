@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ClassicBTree {
 
-    private ClassicBTreeNode root;
+    protected ClassicBTreeNode root;
 
     public ClassicBTree(int degree) {
         this.root = new ClassicBTreeNode(degree);
