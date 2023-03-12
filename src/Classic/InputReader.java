@@ -9,10 +9,10 @@ import java.util.ArrayList;
  * Клас для зчитування з вхідного файлу
  */
 public class InputReader {
-    public static ArrayList<Double> readFile() throws IOException {
+    public static ArrayList<String> readFile() throws IOException {
         String inputFile = "data/input.txt";
         BufferedReader reader = new BufferedReader(new FileReader(inputFile)); //відкрити файл
-        ArrayList<Double> currentArray = new ArrayList<>();
+        ArrayList<String> currentArray = new ArrayList<>();
         String line;
         while (true) {
             line = reader.readLine(); //зчитуємо файл по рядках
@@ -25,7 +25,7 @@ public class InputReader {
                 if (isNotReadable(line))
                     continue;
                 try {
-                    currentArray.add(Double.valueOf(s));
+                    currentArray.add(s);
                 } catch (Exception e) {
                     System.err.println("Cannot parse value " + s + " to double!"); //додаємо число в масив
                 }

@@ -11,9 +11,19 @@ public class OutputWriter {
     public static void write(String message) {
         try {
             String outputFile = "data/output.txt";
-            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile, false));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile, true));
+            writer.write("B-Tree:\n");
             writer.write(message); //записати повідомлення
             writer.newLine(); //додати новий рядок
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void refresh() {
+        try {
+            String outputFile = "data/output.txt";
+            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile, false));
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
