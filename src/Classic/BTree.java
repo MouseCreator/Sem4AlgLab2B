@@ -2,11 +2,11 @@ package Classic;
 
 import java.util.ArrayList;
 
-public class BTee {
+public class BTree {
 
     protected BTreeNode root;
 
-    public BTee(int degree) {
+    public BTree(int degree) {
         this.root = new BTreeNode(degree);
     }
 

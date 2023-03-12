@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BTeeTest {
     @Test
     void add() {
-        BTee tree = formTree();
+        BTree tree = formTree();
         System.out.println(tree.asString());
         assertTrue(isSorted(tree.toArray()));
         assertEquals(22, tree.size());
@@ -19,7 +19,7 @@ class BTeeTest {
 
     @Test
     void addEqualValues() {
-        BTee tree = new BTee(3);
+        BTree tree = new BTree(3);
         for (int i = 1; i <= 22; i++) {
             try {
                 tree.add(2);
@@ -32,8 +32,8 @@ class BTeeTest {
         assertTrue(isSorted(tree.toArray()));
     }
 
-    private BTee formTree() {
-        BTee tree = new BTee(3);
+    private BTree formTree() {
+        BTree tree = new BTree(3);
          for (int i = 1; i <= 22; i++) {
             try {
                 tree.add(i);
@@ -54,7 +54,7 @@ class BTeeTest {
 
     @Test
     void pop() {
-        BTee tree = formTree();
+        BTree tree = formTree();
         System.out.println(tree.asString());
         tree.pop(6);
         tree.pop(12);
@@ -68,7 +68,7 @@ class BTeeTest {
 
     @Test
     void get() {
-        BTee tree = formTree();
+        BTree tree = formTree();
         assertTrue(tree.get(2));
         assertTrue(tree.get(5));
         assertTrue(tree.get(8));
@@ -79,7 +79,7 @@ class BTeeTest {
 
     @Test
     void small() {
-        BTee tree = new BTee(2);
+        BTree tree = new BTree(2);
         tree.add(1);
         tree.pop(1);
         tree.add(2);
