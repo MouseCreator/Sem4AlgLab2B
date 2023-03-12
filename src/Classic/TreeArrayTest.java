@@ -7,7 +7,7 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ClassicTreeArrayTest {
+class TreeArrayTest {
 
     @Test
     void add() {

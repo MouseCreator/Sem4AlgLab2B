@@ -3,6 +3,9 @@ package Classic;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * Вузол у B-дереві
+ */
 class BTreeNode {
     private final TreeValuesArray values; //масив значень
     private final TreeChildrenArray children; //масив піддерев
