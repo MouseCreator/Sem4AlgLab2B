@@ -3,10 +3,9 @@
 
 #minimal tree
 degree = 2
-
 1 2.3 -4.5 44   9
 11.55 4.8 9.5
 
-pop 44
-add 55
-get 55
+Pop 44
+aDd 55 10
+geT 55
