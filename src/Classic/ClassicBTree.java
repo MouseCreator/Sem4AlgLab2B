@@ -36,4 +36,8 @@ public class ClassicBTree {
     public String toString() {
         return this.toArray().toString();
     }
+
+    public int size() {
+        return root.fullSize();
+    }
 }

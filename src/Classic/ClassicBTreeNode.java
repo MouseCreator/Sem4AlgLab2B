@@ -263,4 +263,14 @@ public class ClassicBTreeNode {
         int moveTo = values.position(value);
         return children.get(moveTo).get(value);
     }
+
+    public int fullSize() {
+        int size = values.size();
+        if (!isLeaf) {
+            for (ClassicBTreeNode node : children) {
+                size += node.fullSize();
+            }
+        }
+        return size;
+    }
 }

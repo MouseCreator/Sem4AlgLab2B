@@ -59,6 +59,7 @@ class ClassicBTreeTest {
         tree.pop(18);
         System.out.println(tree.asString());
         assertTrue(isSorted(tree.toArray()));
+        assertEquals( 19, tree.size());
     }
 
     @Test
