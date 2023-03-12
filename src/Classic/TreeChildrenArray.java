@@ -10,7 +10,7 @@ class TreeChildrenArray implements Iterable<BTreeNode>{
 
     private final int minSize; //мінімальний розмір
     private final int maxSize; //максимальний розмір
-    private int size; //теперішній розмір
+    private int size; //поточний розмір
 
     /**
      * Створення пустого масиву
