@@ -1,6 +1,7 @@
 package Classic;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class ClassicBTreeNode {
     private ClassicTreeArray values;
@@ -142,6 +143,9 @@ public class ClassicBTreeNode {
                 popNotLeaf(v);
             }
         } else {
+            if (isLeaf) {
+                throw new NoSuchElementException("Cannot find element " + v + " in the tree");
+            }
             int removeFrom = values.position(v);
             if (children.get(removeFrom).isNotMinimum()) {
                 children.get(removeFrom).pop(v);

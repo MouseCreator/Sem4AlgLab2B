@@ -3,6 +3,7 @@ package Classic;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -57,6 +58,7 @@ class ClassicBTreeTest {
         tree.pop(12);
         System.out.println(tree.asString());
         tree.pop(18);
+        assertThrows(NoSuchElementException.class, ()->tree.pop(40));
         System.out.println(tree.asString());
         assertTrue(isSorted(tree.toArray()));
         assertEquals( 19, tree.size());
