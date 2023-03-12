@@ -1,4 +1,4 @@
-package Std;
+package Classic;
 
 public class Doubles {
 

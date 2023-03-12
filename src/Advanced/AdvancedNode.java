@@ -1,6 +1,6 @@
 package Advanced;
 
-import Std.Doubles;
+import Classic.Doubles;
 
 public class AdvancedNode {
 

@@ -1,6 +1,5 @@
 package Classic;
 
-import Std.Doubles;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

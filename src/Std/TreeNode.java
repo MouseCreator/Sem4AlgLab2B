@@ -1,5 +1,7 @@
 package Std;
 
+import Classic.Doubles;
+
 import java.util.LinkedList;
 
 public class TreeNode {

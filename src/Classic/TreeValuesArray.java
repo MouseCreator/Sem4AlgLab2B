@@ -1,6 +1,5 @@
 package Classic;
 
-import Std.Doubles;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 

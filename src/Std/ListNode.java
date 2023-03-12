@@ -1,5 +1,7 @@
 package Std;
 
+import Classic.Doubles;
+
 public class ListNode {
     private ListNode prev;
     private double d;
