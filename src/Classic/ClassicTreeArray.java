@@ -1,8 +1,6 @@
 package Classic;
 
 import Std.Doubles;
-
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -20,13 +18,6 @@ public class ClassicTreeArray implements Iterable<Double> {
         this.degree = degree;
         size = 0;
         array = new double[maxSize];
-    }
-    protected ArrayList<Double> toArrayList() {
-        ArrayList<Double> doubles = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            doubles.add(array[i]);
-        }
-        return doubles;
     }
     public void add(double value) {
         if (isFull()) {
