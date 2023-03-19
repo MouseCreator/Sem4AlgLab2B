@@ -1,4 +1,4 @@
-package Classic;
+package BTree;
 
 import org.junit.jupiter.api.Test;
 

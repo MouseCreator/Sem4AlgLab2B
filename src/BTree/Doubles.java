@@ -1,4 +1,4 @@
-package Classic;
+package BTree;
 
 /**
  * Клас для роботи з дійсними числами

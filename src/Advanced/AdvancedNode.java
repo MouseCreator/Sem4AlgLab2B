@@ -1,6 +1,6 @@
 package Advanced;
 
-import Classic.Doubles;
+import BTree.Doubles;
 
 public class AdvancedNode {
 

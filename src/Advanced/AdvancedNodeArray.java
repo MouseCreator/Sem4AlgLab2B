@@ -1,6 +1,6 @@
 package Advanced;
 
-import Classic.Doubles;
+import BTree.Doubles;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

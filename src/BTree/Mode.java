@@ -1,4 +1,4 @@
-package Classic;
+package BTree;
 
 /**
  * Режими роботи з вхідним файлом
