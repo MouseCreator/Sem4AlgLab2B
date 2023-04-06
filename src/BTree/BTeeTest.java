@@ -106,6 +106,26 @@ class BTeeTest {
         s = getCharRepresentation(result);
         System.out.println(s);
     }
+
+    @Test
+    void integerTest() {
+        BTree tree = new BTree(2);
+        String inputs = "6 19 17 11 3 12 8 13 1 2 4";
+        inputs=inputs.toUpperCase();
+        String[] strings = inputs.split(" ");
+        for (String s : strings) {
+            int a = Integer.parseInt(s);
+            tree.add(a);
+        }
+        String result = tree.asString();
+        System.out.println(result);
+        tree.pop(6);
+        result = tree.asString();
+        System.out.println(result);
+        tree.pop(3);
+        result = tree.asString();
+        System.out.println(result);
+    }
     private static int toSavable(String from) {
         return from.charAt(0);
     }

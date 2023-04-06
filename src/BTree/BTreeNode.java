@@ -312,7 +312,7 @@ class BTreeNode {
             this.children.get(removeFrom).pop(v);
         } else if (removeFrom != 0) { //наявний сусід зліва - зливаємо
             mergeInsert(removeFrom-1);
-            this.children.get(removeFrom).pop(v);
+            this.children.get(removeFrom-1).pop(v);
         } else if (removeFrom != node.values.size()) { //наявний сусід справа - зливаємо
             mergeInsert(removeFrom);
             this.children.get(removeFrom).pop(v);
