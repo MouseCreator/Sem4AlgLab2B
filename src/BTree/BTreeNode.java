@@ -303,11 +303,13 @@ class BTreeNode {
             node.values.add(this.values.get(removeFrom-1));
             this.values.insert(removeFrom-1, this.children.get(removeFrom-1).values.popLast());
             node.children.addFirst(this.children.get(removeFrom-1).children.popLast());
+            this.children.get(removeFrom).pop(v);
         } else if (removeFrom != node.values.size() && this.children.get(removeFrom+1).isNotMinimum()) {
             //сусід справа не мінімальний - позичаємо значення
             node.values.add(this.values.get(removeFrom));
             this.values.insert(removeFrom, this.children.get(removeFrom+1).values.popFirst());
             node.children.addLast(this.children.get(removeFrom+1).children.popFirst());
+            this.children.get(removeFrom).pop(v);
         } else if (removeFrom != 0) { //наявний сусід зліва - зливаємо
             mergeInsert(removeFrom-1);
             this.children.get(removeFrom).pop(v);

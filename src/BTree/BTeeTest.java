@@ -101,9 +101,6 @@ class BTeeTest {
         String s = getCharRepresentation(result);
         System.out.println(s);
         tree.pop(toSavable("Q"));
-        result = tree.asString();
-        s = getCharRepresentation(result);
-        System.out.println(s);
         tree.pop(toSavable("H"));
         result = tree.asString();
         s = getCharRepresentation(result);
