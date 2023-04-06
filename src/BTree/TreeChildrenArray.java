@@ -191,7 +191,12 @@ class TreeChildrenArray implements Iterable<BTreeNode>{
      * @param value - значення, що потрібно дадати
      */
     public void addFirst(BTreeNode value) {
-        nodes[size] = value;
+        if (size >= maxSize)
+            throw new IndexOutOfBoundsException("Array is over its size of " + maxSize);
+        for(int i = size - 1; i >= 0; i--) {
+            nodes[i+1] = nodes[i];
+        }
+        nodes[0] = value;
         size++;
     }
 }

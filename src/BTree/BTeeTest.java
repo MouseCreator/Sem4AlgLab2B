@@ -79,7 +79,7 @@ class BTeeTest {
 
     @Test
     void small() {
-        BTree tree = new BTree(2);
+        BTree tree = new BTree(3);
         tree.add(1);
         tree.pop(1);
         tree.add(2);
@@ -89,7 +89,7 @@ class BTeeTest {
 
     @Test
     void characterTest() {
-        BTree tree = new BTree(3);
+        BTree tree = new BTree(2);
         String inputs = "F S Q K C L H M B A D";
         inputs=inputs.toUpperCase();
         String[] strings = inputs.split(" ");
@@ -100,6 +100,17 @@ class BTeeTest {
         String result = tree.asString();
         String s = getCharRepresentation(result);
         System.out.println(s);
+        tree.pop(toSavable("Q"));
+        result = tree.asString();
+        s = getCharRepresentation(result);
+        System.out.println(s);
+        tree.pop(toSavable("H"));
+        result = tree.asString();
+        s = getCharRepresentation(result);
+        System.out.println(s);
+    }
+    private static int toSavable(String from) {
+        return from.charAt(0);
     }
 
     private static String getCharRepresentation(String result) {

@@ -229,7 +229,6 @@ class BTreeNode {
                 children.get(removeFrom).pop(v); //якщо наступний не мінімальний - переходимо до нього
             } else {
                 appendNode(removeFrom, v); //зливаємо з сусідом або позичаємо значення
-                children.get(removeFrom).pop(v); //переходимо у выдповідний вузол
             }
         }
     }
@@ -301,9 +300,9 @@ class BTreeNode {
         BTreeNode node = this.children.get(removeFrom);
         if (removeFrom != 0 && this.children.get(removeFrom-1).isNotMinimum()) {
             //сусід зліва не мінімальний - позичаємо значення
-            node.values.add(this.values.get(removeFrom));
-            this.values.insert(removeFrom, this.children.get(removeFrom-1).values.popLast());
-            node.children.addFirst(this.children.get(removeFrom+1).children.popLast());
+            node.values.add(this.values.get(removeFrom-1));
+            this.values.insert(removeFrom-1, this.children.get(removeFrom-1).values.popLast());
+            node.children.addFirst(this.children.get(removeFrom-1).children.popLast());
         } else if (removeFrom != node.values.size() && this.children.get(removeFrom+1).isNotMinimum()) {
             //сусід справа не мінімальний - позичаємо значення
             node.values.add(this.values.get(removeFrom));
@@ -342,7 +341,7 @@ class BTreeNode {
 
     /**
      *
-     * @param removeFrom - місце наступного вузла у масиві піддев
+     * @param removeFrom - місце наступного вузла у масиві піддерев
      * @return false, якщо вдалося вилучити значення; true - інакше
      */
     private boolean simpleInsert(int removeFrom) {
