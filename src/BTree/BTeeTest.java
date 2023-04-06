@@ -86,4 +86,35 @@ class BTeeTest {
         assertEquals(1, tree.size());
         assertEquals(0, tree.height());
     }
+
+    @Test
+    void characterTest() {
+        BTree tree = new BTree(3);
+        String inputs = "F S Q K C L H M B A D";
+        inputs=inputs.toUpperCase();
+        String[] strings = inputs.split(" ");
+        for (String s : strings) {
+            int a = s.charAt(0);
+            tree.add(a);
+        }
+        String result = tree.asString();
+        String s = getCharRepresentation(result);
+        System.out.println(s);
+    }
+
+    private static String getCharRepresentation(String result) {
+        StringBuilder builder = new StringBuilder("Result:\n");
+        for (String s : result.split("\n")) {
+            if (s.contains("_")) {
+                builder.append(s).append("\n");
+                continue;
+            }
+            builder.append("\t".repeat((s.lastIndexOf("\t")+1)));
+            s = s.replace("\t", "");
+            double d = Double.parseDouble(s);
+            char a = (char) Math.round(d);
+            builder.append(a).append("\n");
+        }
+        return builder.toString();
+    }
 }
